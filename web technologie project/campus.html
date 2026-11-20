@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salles Libres & Bibliothèque Intelligente — FT UMBB</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" type="image/jpeg" href="img/logo-ft.jpg">
+</head>
+<body>
+
+    <div class="top-bar">
+        <span class="top-bar-item">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            contactft@univ-boumerdes.dz
+        </span>
+        <span class="top-bar-item">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Faculté (Ex-INGM), Rue Mohamed El Mahdi — Boumerdès
+        </span>
+    </div>
+
+    <header>
+        <nav class="navbar">
+            <a href="index.html" class="logo">
+                <div class="logo-emblem">
+                    <img src="img/logo-ft.jpg" onerror="this.onerror=null;this.src='img/logo-ft.png';" alt="Logo Faculté de Technologie UMBB">
+                </div>
+                <div class="logo-text-wrap">
+                    <span class="logo-title">Faculté de Technologie</span>
+                    <span class="logo-sub">Smart Campus — UMBB</span>
+                </div>
+            </a>
+
+            <div class="nav-actions">
+                <button id="langToggle" class="icon-btn">AR / FR</button>
+                <button id="themeToggle" class="icon-btn" aria-label="Thème">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+                </button>
+                <button id="burgerBtn" class="burger-btn" aria-label="Menu">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+                </button>
+            </div>
+
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Accueil & Plan</a></li>
+                <li><a href="emplois.html">Emplois du temps</a></li>
+                <li><a href="enseignants.html">Enseignants</a></li>
+                <li><a href="campus.html" class="active">Salles & Bibliothèque</a></li>
+                <li><a href="etudiants.html">Listes & Moyenne</a></li>
+                <li><a href="reclamation.html">Réclamations</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container" style="margin-top: 2.2rem;">
+        <div class="section-title">
+            <span>Espaces d'Étude & Bibliothèque Intelligente (FT)</span>
+        </div>
+
+        <!-- أزرار التنقل بين محاكي القاعات الفارغة والمكتبة الذكية -->
+        <div class="campus-tabs">
+            <button class="tab-btn active" data-target="librarySection">Bibliothèque Intelligente (Vue 3D & Badge QR)</button>
+            <button class="tab-btn" data-target="roomsSection">Simulateur de Salles Libres (Révision)</button>
+        </div>
+
+        <!-- القسم الأول: المكتبة الذكية بنظام QR Code والبادج ثلاثي الأبعاد -->
+        <section id="librarySection">
+            <!-- شريط أوقات العمل -->
+            <div class="library-banner">
+                <div>
+                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 4px;">
+                        <h3 style="margin: 0;">Bibliothèque Centrale de la Faculté</h3>
+                        <span id="libOpenBadge" class="status-badge status-free">Ouverte</span>
+                    </div>
+                    <p id="libHoursText" style="color: var(--text-muted); font-size: 0.9rem; margin: 0;">
+                        Horaires normaux : <strong>08:30 — 17:30</strong>
+                    </p>
+                </div>
+                <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+                    <button id="examModeToggle" class="btn btn-outline">Basculer en Mode Examens (08:30 — 00:00)</button>
+                </div>
+            </div>
+
+            <!-- شريط حساب الطالب ومتابعة المقعد المحجوز -->
+            <div class="account-bar">
+                <!-- واجهة تسجيل الدخول السريع -->
+                <form id="studentLoginForm" style="display: flex; gap: 10px; flex-wrap: wrap; align-items: center; width: 100%;">
+                    <span style="font-weight: 700;">Espace Étudiant :</span>
+                    <input type="text" id="studentMatricule" placeholder="Matricule (ex: 202031029162)" required>
+                    <input type="text" id="studentName" placeholder="Nom & Prénom" required>
+                    <input type="date" id="studentBirth" title="Date de naissance" style="max-width: 155px;">
+                    <select id="studentSpec" style="max-width: 210px;">
+                        <option value="M2 Réseaux & Télécoms">M2 Réseaux & Télécoms</option>
+                        <option value="M2 Automatique Ind.">M2 Automatique Ind.</option>
+                        <option value="M1 Systèmes Embarqués">M1 Systèmes Embarqués</option>
+                        <option value="L3 Électrotechnique">L3 Électrotechnique</option>
+                        <option value="M1 Génie Biomédical">M1 Génie Biomédical</option>
+                    </select>
+                    <button type="submit" class="btn btn-accent">Activer mon Badge 3D</button>
+                </form>
+
+                <!-- واجهة الطالب بعد تسجيل الدخول -->
+                <div id="studentDashboard" style="display: none; width: 100%; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+                    <div>
+                        <div id="loggedStudentInfo" style="font-weight: 700; font-size: 1rem;"></div>
+                        <div id="activeSeatInfo" style="font-size: 0.85rem; color: #e2e8f0; margin-top: 2px;">Aucune table scannée actuellement.</div>
+                    </div>
+                    <div style="display: flex; gap: 8px; flex-wrap: wrap; align-items: center;">
+                        <span id="seatTimerDisplay" style="background: rgba(255,255,255,0.14); padding: 6px 12px; border-radius: 8px; font-weight: 700; font-size: 0.85rem; display: none;"></span>
+                        <button id="toggleBadgeBtn" class="btn" style="background: rgba(249,115,22,0.28); border: 1px solid rgba(249,115,22,0.7);">Afficher / Masquer Badge 3D</button>
+                        <button id="sim30MinBtn" class="btn btn-outline" style="color: #fff; border-color: rgba(255,255,255,0.4); display: none;">Simuler +30 min (Test)</button>
+                        <button id="releaseSeatBtn" class="btn btn-accent" style="display: none;">Scanner Sortie / Libérer</button>
+                        <button id="logoutStudentBtn" class="btn" style="background: rgba(255,255,255,0.12);">Déconnexion</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- المخطط المعماري ثلاثي الأبعاد متعدد الطوابق -->
+            <div class="arch-wrapper">
+                <div class="arch-toolbar">
+                    <div class="floor-tabs">
+                        <button class="floor-btn active" data-floor="1">
+                            <span>1er Étage : Réception & Accueil</span>
+                            <span class="floor-pill">Accueil</span>
+                        </button>
+                        <button class="floor-btn" data-floor="2">
+                            <span>2ème Étage : Salle Lecture</span>
+                            <span class="floor-pill" id="floor2Count">12 tables</span>
+                        </button>
+                        <button class="floor-btn" data-floor="3">
+                            <span>3ème Étage : Espace Tech</span>
+                            <span class="floor-pill" id="floor3Count">12 tables</span>
+                        </button>
+                    </div>
+
+                    <div class="camera-controls">
+                        <button id="rotateLeftBtn" class="icon-btn" title="Pivoter à gauche">↺</button>
+                        <button id="toggle3DBtn" class="icon-btn">Vue 2D / 3D</button>
+                        <button id="rotateRightBtn" class="icon-btn" title="Pivoter à droite">↻</button>
+                    </div>
+                </div>
+
+                <!-- دليل الألوان -->
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; gap: 10px; font-size: 0.82rem; font-weight: 700;">
+                    <div style="display: flex; gap: 16px; flex-wrap: wrap;">
+                        <span><strong style="color: #059669;">■</strong> Table Libre (Cliquer pour QR)</span>
+                        <span><strong style="color: #dc2626;">■</strong> Table Occupée (Cliquer pour voir Badge)</span>
+                        <span><strong style="color: #d97706;">■</strong> Votre Table Actuelle</span>
+                    </div>
+                    <span id="floorSubtitle" style="color: var(--text-muted);">1er Étage réservé à la réception, l'orientation et le prêt</span>
+                </div>
+
+                <!-- مسرح العرض ثلاثي الأبعاد + البادج الجامعي المعلق 3D -->
+                <div class="iso-viewport" id="isoViewportStage">
+                    <div class="iso-building" id="isoBuilding"></div>
+
+                    <!-- البادج الجامعي ثلاثي الأبعاد المعلق بجانب الطاولات -->
+                    <div class="floating-badge-dock" id="floatingBadgeDock" style="display: none;">
+                        <div class="badge-lanyard-strap"></div>
+                        <div class="badge-metal-clip"></div>
+
+                        <div class="student-badge-3d" id="studentBadge3D" title="Cliquer pour retourner la carte (QR Pass)">
+                            <div class="badge-inner" id="studentBadgeInner">
+                                <!-- الوجه الأمامي للبطاقة -->
+                                <div class="badge-face badge-front">
+                                    <div class="badge-slot-hole"></div>
+                                    <div class="badge-top-header">
+                                        <img src="img/logo-ft.jpg" onerror="this.onerror=null;this.src='img/logo-ft.png';" alt="UMBB" class="badge-uni-logo">
+                                        <div class="badge-uni-text">
+                                            <span>UNIVERSITÉ BOUMERDÈS</span>
+                                            <strong>FACULTÉ DE TECHNOLOGIE</strong>
+                                        </div>
+                                    </div>
+
+                                    <div class="badge-avatar-ring">
+                                        <div class="badge-avatar-initials" id="badgeInitials">BB</div>
+                                        <span class="badge-live-indicator" id="badgeLiveDot"></span>
+                                    </div>
+
+                                    <h4 class="badge-student-name" id="badgeFullName">Bilel Bessaa</h4>
+                                    <div class="badge-spec-pill" id="badgeSpecialty">M2 Réseaux & Télécoms</div>
+
+                                    <div class="badge-meta-box">
+                                        <div><span>Né(e) le :</span> <strong id="badgeBirthDate">14/05/2003</strong></div>
+                                        <div><span>Table :</span> <strong id="badgeTableTag" class="badge-table-highlight">Aucune</strong></div>
+                                    </div>
+
+                                    <div class="badge-bottom-bar">
+                                        <span>MATRICULE ÉTUDIANT</span>
+                                        <strong id="badgeMatriculeVal">202031029162</strong>
+                                    </div>
+                                    <div class="badge-glare"></div>
+                                </div>
+
+                                <!-- الوجه الخلفي للبطاقة (QR Code + مؤقت الـ 30 دقيقة) -->
+                                <div class="badge-face badge-back">
+                                    <div class="badge-slot-hole"></div>
+                                    <span class="badge-back-tag">PASS BIBLIOTHÈQUE 2026/2027</span>
+                                    <div class="badge-qr-box" id="badgeBackQr"></div>
+                                    <div class="badge-timer-pill" id="badgeBackTimer">Session Active • 30:00</div>
+                                    <p style="font-size: 0.7rem; color: #cbd5e1; margin: 6px 0 0;">Cliquer sur le badge pour voir le recto</p>
+                                </div>
+                            </div>
+                        </div>
+                        <span class="badge-hint-label">↻ Cliquer pour retourner</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- القسم الثاني: محاكي البحث عن قاعة فارغة للمراجعة -->
+        <section id="roomsSection" style="display: none;">
+            <div class="controls-bar">
+                <div class="control-group">
+                    <label for="simDaySelect">Jour de la semaine :</label>
+                    <select id="simDaySelect">
+                        <option value="Samedi">Samedi</option>
+                        <option value="Dimanche" selected>Dimanche</option>
+                        <option value="Lundi">Lundi</option>
+                        <option value="Mardi">Mardi</option>
+                        <option value="Mercredi">Mercredi</option>
+                        <option value="Jeudi">Jeudi</option>
+                    </select>
+                </div>
+                <div class="control-group">
+                    <label for="simSlotSelect">Créneau horaire souhaité :</label>
+                    <select id="simSlotSelect">
+                        <option value="0">08:00 - 09:30</option>
+                        <option value="1" selected>09:40 - 11:10</option>
+                        <option value="2">11:20 - 12:50</option>
+                        <option value="3">13:00 - 14:30</option>
+                        <option value="4">14:40 - 16:10</option>
+                        <option value="5">16:20 - 17:50</option>
+                    </select>
+                </div>
+                <div class="control-group">
+                    <label for="simTypeFilter">Type d'espace :</label>
+                    <select id="simTypeFilter">
+                        <option value="ALL">Toutes les salles (Amphis, TD, Labos)</option>
+                        <option value="AMPHI">Amphithéâtres (AP / A)</option>
+                        <option value="SALLE">Salles de TD (Bloc B / C)</option>
+                        <option value="LABO">Salles Info & Labos (RC / C3)</option>
+                    </select>
+                </div>
+            </div>
+
+            <div style="margin-bottom: 1rem; font-weight: 700;" id="freeRoomsCount"></div>
+            <div class="dept-grid" id="freeRoomsResults"></div>
+        </section>
+    </main>
+
+    <!-- نافذة QR Code الخاصة بكل طاولة -->
+    <div class="cmd-overlay" id="qrModal">
+        <div class="cmd-modal" style="max-width: 400px; text-align: center; padding: 1.8rem;">
+            <h3 id="qrModalTitle" style="margin-bottom: 6px;">Table T-01</h3>
+            <p id="qrModalSub" style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1.2rem;">Scannez ce QR Code fixé sur la table pour confirmer votre présence.</p>
+            <div id="qrSvgContainer" style="background: #fff; padding: 14px; border-radius: 12px; display: inline-block; border: 1px solid var(--border); margin-bottom: 1.2rem;"></div>
+            <div style="display: flex; gap: 10px; justify-content: center;">
+                <button id="confirmScanBtn" class="btn btn-accent">Simuler le Scan QR (Occuper)</button>
+                <button id="closeQrModalBtn" class="btn btn-outline">Fermer</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- نافذة معاينة البادج عند النقر على طاولة محجوزة في المكتبة -->
+    <div class="cmd-overlay" id="occupantBadgeModal">
+        <div class="cmd-modal" style="max-width: 340px; text-align: center; padding: 1.6rem; background: transparent; box-shadow: none; border: none;">
+            <div class="student-badge-3d is-modal-badge" style="margin: 0 auto;">
+                <div class="badge-inner">
+                    <div class="badge-face badge-front" style="position: relative;">
+                        <div class="badge-slot-hole"></div>
+                        <div class="badge-top-header">
+                            <img src="img/logo-ft.jpg" onerror="this.onerror=null;this.src='img/logo-ft.png';" alt="UMBB" class="badge-uni-logo">
+                            <div class="badge-uni-text">
+                                <span>PLACE OCCUPÉE</span>
+                                <strong>FACULTÉ DE TECHNOLOGIE</strong>
+                            </div>
+                        </div>
+                        <div class="badge-avatar-ring">
+                            <div class="badge-avatar-initials" id="occInitials">ET</div>
+                            <span class="badge-live-indicator occupied"></span>
+                        </div>
+                        <h4 class="badge-student-name" id="occName">Étudiant FT</h4>
+                        <div class="badge-spec-pill" id="occSpec">Génie Électrique</div>
+                        <div class="badge-meta-box">
+                            <div><span>Né(e) le :</span> <strong id="occBirth">22/09/2003</strong></div>
+                            <div><span>Table :</span> <strong id="occTable" class="badge-table-highlight">T-01</strong></div>
+                        </div>
+                        <div class="badge-bottom-bar">
+                            <span>MATRICULE</span>
+                            <strong id="occMatricule">212131048812</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button id="closeOccupantModalBtn" class="btn btn-accent" style="margin-top: 14px;">Fermer la fiche</button>
+        </div>
+    </div>
+
+    <!-- إشعار التحقق كل 30 دقيقة -->
+    <div class="ping-toast" id="pingToast">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+            <strong style="color: var(--accent);">Vérification de présence (30 min)</strong>
+            <span id="pingCountdown" style="font-weight: 800; color: var(--danger);">15s</span>
+        </div>
+        <p style="font-size: 0.88rem; margin-bottom: 12px;">
+            Votre place à la bibliothèque va redevenir publique. Voulez-vous prolonger de <strong>30 minutes</strong> supplémentaires ?
+        </p>
+        <div style="display: flex; gap: 8px;">
+            <button id="extendSeatBtn" class="btn btn-accent" style="flex: 1;">Oui, prolonger (30 min)</button>
+            <button id="declineSeatBtn" class="btn btn-outline">Libérer</button>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2026-2027 Faculté de Technologie — Université M'hamed Bougara de Boumerdès (UMBB).</p>
+    </footer>
+
+    <script src="js/data.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/campus.js"></script>
+
+    <!-- وحدة التحكم بالبادج ثلاثي الأبعاد المتحرك (Badge Étudiant 3D) -->
+    <script>
+    (function initStudentBadge3D() {
+        const dock = document.getElementById("floatingBadgeDock");
+        const badge3D = document.getElementById("studentBadge3D");
+        const loginForm = document.getElementById("studentLoginForm");
+        const toggleBtn = document.getElementById("toggleBadgeBtn");
+        if (!dock || !badge3D) return;
+
+        const PROFILE_KEY = "ft_student_badge_meta";
+
+        function formatBirth(isoDate, matricule) {
+            if (isoDate && isoDate.includes("-")) {
+                const [y, m, d] = isoDate.split("-");
+                return `${d}/${m}/${y}`;
+            }
+            const seed = parseInt((matricule || "202031029162").slice(-4), 10) || 1405;
+            const day = String((seed % 27) + 1).padStart(2, "0");
+            const month = String((seed % 11) + 1).padStart(2, "0");
+            return `${day}/${month}/2003`;
+        }
+
+        function getInitials(name) {
+            return (name || "ET")
+                .trim()
+                .split(/\s+/)
+                .slice(0, 2)
+                .map(w => w[0]?.toUpperCase() || "")
+                .join("") || "ET";
+        }
+
+        function saveMeta() {
+            const name = document.getElementById("studentName")?.value.trim();
+            const matricule = document.getElementById("studentMatricule")?.value.trim();
+            const birth = document.getElementById("studentBirth")?.value;
+            const spec = document.getElementById("studentSpec")?.value;
+            if (name || matricule) {
+                localStorage.setItem(PROFILE_KEY, JSON.stringify({
+                    name,
+                    matricule,
+                    birth: formatBirth(birth, matricule),
+                    spec: spec || "M2 Réseaux & Télécoms"
+                }));
+            }
+        }
+
+        if (loginForm) {
+            loginForm.addEventListener("submit", () => {
+                saveMeta();
+                setTimeout(() => {
+                    syncBadgeFromDOM();
+                    triggerShake();
+                }, 80);
+            });
+        }
+
+        function triggerShake() {
+            badge3D.classList.remove("badge-booked-shake");
+            void badge3D.offsetWidth;
+            badge3D.classList.add("badge-booked-shake");
+        }
+
+        let lastBookedTable = "";
+
+        function syncBadgeFromDOM() {
+            const dash = document.getElementById("studentDashboard");
+            const loggedInfo = document.getElementById("loggedStudentInfo")?.textContent || "";
+            const seatInfo = document.getElementById("activeSeatInfo")?.textContent || "";
+            const timerText = document.getElementById("seatTimerDisplay")?.textContent || "";
+
+            const isLoggedIn = dash && dash.style.display !== "none" && loggedInfo.trim().length > 0;
+            if (!isLoggedIn) {
+                dock.style.display = "none";
+                lastBookedTable = "";
+                return;
+            }
+
+            if (dock.dataset.hiddenByUser !== "true") {
+                dock.style.display = "flex";
+            }
+
+            const meta = JSON.parse(localStorage.getItem(PROFILE_KEY) || "{}");
+            const nameMatch = loggedInfo.match(/^([^(]+)/);
+            const matMatch = loggedInfo.match(/Matricule\s*:\s*([0-9A-Za-z]+)/i);
+
+            const fullName = (nameMatch ? nameMatch[1].trim() : meta.name) || "Étudiant FT";
+            const matricule = (matMatch ? matMatch[1].trim() : meta.matricule) || "202031029162";
+            const birth = meta.birth || formatBirth("", matricule);
+            const spec = meta.spec || "M2 Réseaux & Télécoms";
+
+            document.getElementById("badgeFullName").textContent = fullName;
+            document.getElementById("badgeMatriculeVal").textContent = matricule;
+            document.getElementById("badgeBirthDate").textContent = birth;
+            document.getElementById("badgeSpecialty").textContent = spec;
+            document.getElementById("badgeInitials").textContent = getInitials(fullName);
+
+            // استخراج رقم الطاولة المحجوزة حالياً (مثل T-07)
+            const tableMatch = seatInfo.match(/(T-\d+)/i);
+            const tableTagEl = document.getElementById("badgeTableTag");
+            const liveDotEl = document.getElementById("badgeLiveDot");
+
+            if (tableMatch) {
+                const tableId = tableMatch[1].toUpperCase();
+                const num = parseInt(tableId.replace("T-", ""), 10);
+                const floorLabel = num <= 12 ? "Étage 2" : "Étage 3";
+                tableTagEl.textContent = `${tableId} (${floorLabel})`;
+                tableTagEl.classList.add("is-booked");
+                liveDotEl.classList.add("is-active");
+                if (lastBookedTable !== tableId) {
+                    lastBookedTable = tableId;
+                    triggerShake();
+                }
+            } else {
+                tableTagEl.textContent = "Aucune table";
+                tableTagEl.classList.remove("is-booked");
+                liveDotEl.classList.remove("is-active");
+                lastBookedTable = "";
+            }
+
+            // تحديث المؤقت والـ QR في الوجه الخلفي
+            document.getElementById("badgeBackTimer").textContent = timerText || "Aucune réservation active";
+            const qrBox = document.getElementById("badgeBackQr");
+            if (qrBox && !qrBox.dataset.rendered) {
+                qrBox.dataset.rendered = "1";
+                qrBox.innerHTML = `<svg width="96" height="96" viewBox="0 0 100 100" fill="#0e2a5c">
+                    <rect x="6" y="6" width="26" height="26" fill="none" stroke="#0e2a5c" stroke-width="6"/>
+                    <rect x="13" y="13" width="12" height="12"/>
+                    <rect x="68" y="6" width="26" height="26" fill="none" stroke="#0e2a5c" stroke-width="6"/>
+                    <rect x="75" y="13" width="12" height="12"/>
+                    <rect x="6" y="68" width="26" height="26" fill="none" stroke="#0e2a5c" stroke-width="6"/>
+                    <rect x="13" y="75" width="12" height="12"/>
+                    <rect x="42" y="10" width="8" height="8"/><rect x="54" y="22" width="8" height="16"/>
+                    <rect x="10" y="44" width="16" height="8"/><rect x="38" y="42" width="22" height="22" fill="#f97316"/>
+                    <rect x="68" y="44" width="12" height="8"/><rect x="46" y="72" width="14" height="14"/>
+                    <rect x="70" y="68" width="20" height="8"/><rect x="78" y="82" width="12" height="12"/>
+                </svg>`;
+            }
+        }
+
+        // مراقبة تغيرات لوحة الطالب والمؤقت تلقائياً
+        const observer = new MutationObserver(syncBadgeFromDOM);
+        ["studentDashboard", "loggedStudentInfo", "activeSeatInfo", "seatTimerDisplay"].forEach(id => {
+            const el = document.getElementById(id);
+            if (el) observer.observe(el, { childList: true, subtree: true, attributes: true, characterData: true });
+        });
+        setInterval(syncBadgeFromDOM, 1000);
+        syncBadgeFromDOM();
+
+        // إظهار أو إخفاء البادج يدوياً
+        if (toggleBtn) {
+            toggleBtn.addEventListener("click", () => {
+                const isHidden = dock.style.display === "none";
+                dock.dataset.hiddenByUser = isHidden ? "false" : "true";
+                dock.style.display = isHidden ? "flex" : "none";
+            });
+        }
+
+        // قلب البطاقة 180 درجة عند النقر
+        badge3D.addEventListener("click", () => {
+            badge3D.classList.toggle("is-flipped");
+        });
+
+        // إمالة ثلاثية الأبعاد تفاعلية مع حركة الفأرة
+        badge3D.addEventListener("mousemove", (e) => {
+            const rect = badge3D.getBoundingClientRect();
+            const x = (e.clientX - rect.left) / rect.width - 0.5;
+            const y = (e.clientY - rect.top) / rect.height - 0.5;
+            badge3D.style.setProperty("--tilt-x", `${(-y * 24).toFixed(1)}deg`);
+            badge3D.style.setProperty("--tilt-y", `${(x * 28).toFixed(1)}deg`);
+            badge3D.classList.add("is-hovering");
+        });
+
+        badge3D.addEventListener("mouseleave", () => {
+            badge3D.classList.remove("is-hovering");
+            badge3D.style.setProperty("--tilt-x", "0deg");
+            badge3D.style.setProperty("--tilt-y", "0deg");
+        });
+
+        // عرض بادج الطالب الجالس عند النقر على أي طاولة محجوزة في المجسم 3D
+        const SAMPLE_OCCUPANTS = [
+            { name: "Mellah Sirine", mat: "202031041208", birth: "03/11/2002", spec: "M2 Réseaux & Télécoms" },
+            { name: "Khelifi Youcef", mat: "212131058914", birth: "19/02/2003", spec: "M1 Automatique Ind." },
+            { name: "Benali Amira", mat: "222231019477", birth: "27/08/2004", spec: "L3 Électronique" },
+            { name: "Mansouri Walid", mat: "202031077310", birth: "11/04/2002", spec: "M2 Électrotechnique" }
+        ];
+
+        const occModal = document.getElementById("occupantBadgeModal");
+        document.getElementById("closeOccupantModalBtn")?.addEventListener("click", () => {
+            occModal.classList.remove("open");
+        });
+        occModal?.addEventListener("click", (e) => {
+            if (e.target === occModal) occModal.classList.remove("open");
+        });
+
+        document.getElementById("isoBuilding")?.addEventListener("click", (e) => {
+            const occupiedTable = e.target.closest(".iso-table.occupied");
+            if (!occupiedTable || occupiedTable.classList.contains("mine")) return;
+
+            const tableLabel = occupiedTable.textContent.trim() || "T-02";
+            const num = parseInt(tableLabel.replace(/\D/g, ""), 10) || 1;
+            const stu = SAMPLE_OCCUPANTS[num % SAMPLE_OCCUPANTS.length];
+
+            document.getElementById("occName").textContent = stu.name;
+            document.getElementById("occMatricule").textContent = stu.mat;
+            document.getElementById("occBirth").textContent = stu.birth;
+            document.getElementById("occSpec").textContent = stu.spec;
+            document.getElementById("occTable").textContent = tableLabel;
+            document.getElementById("occInitials").textContent = getInitials(stu.name);
+
+            occModal.classList.add("open");
+        }, true);
+    })();
+    </script>
+</body>
+</html>

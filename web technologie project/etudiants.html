@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listes des Étudiants & Calculateur LMD — FT UMBB</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" type="image/jpeg" href="img/logo-ft.jpg">
+</head>
+<body>
+
+    <div class="top-bar">
+        <span class="top-bar-item">contactft@univ-boumerdes.dz</span>
+        <span class="top-bar-item">Cité Frantz Fanon — Boumerdès, Algérie</span>
+    </div>
+
+    <header>
+        <nav class="navbar">
+        <a href="index.html" class="logo">
+            <div class="logo-emblem">
+                <img src="img/logo-ft.jpg" onerror="this.onerror=null;this.src='img/logo-ft.png';" alt="Logo Faculté de Technologie UMBB">
+            </div>
+            <div class="logo-text-wrap">
+                <span class="logo-title">Faculté de Technologie</span>
+                <span class="logo-sub">Université M'hamed Bougara — Boumerdès</span>
+            </div>
+        </a>
+
+            <div class="nav-actions">
+                <button id="langToggle" class="icon-btn">AR / FR</button>
+                <button id="themeToggle" class="icon-btn" aria-label="Thème">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+                </button>
+                <button id="burgerBtn" class="burger-btn" aria-label="Menu">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+                </button>
+            </div>
+
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Accueil & Plan</a></li>
+                <li><a href="emplois.html">Emplois du temps</a></li>
+                <li><a href="enseignants.html">Enseignants</a></li>
+                <li><a href="campus.html">Salles & Bibliothèque</a></li>
+                <li><a href="etudiants.html" class="active">Listes & Moyenne</a></li>
+                <li><a href="reclamation.html">Réclamations</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container" style="margin-top: 2.2rem;">
+        <!-- القسم الأول: قوائم الطلبة وتحميل CSV -->
+        <div class="section-title">
+            <span>Listes Officielles des Étudiants (S1 — 2026/2027)</span>
+            <button id="exportCsvBtn" class="btn btn-accent no-print">Télécharger la Liste (.CSV)</button>
+        </div>
+
+        <div class="card" style="margin-bottom: 1.5rem; border-inline-start: 4px solid var(--accent); padding: 1rem 1.3rem;">
+            <p style="font-size: 0.86rem; color: var(--text-muted); margin: 0;">
+                <strong>Protection des données personnelles :</strong> Conformément à la réglementation universitaire, les listes publiques affichent uniquement le numéro d'inscription (Matricule) et l'identifiant anonymisé de l'étudiant.
+            </p>
+        </div>
+
+        <div class="controls-bar">
+            <div class="control-group">
+                <label for="stuDeptSelect">Filière / Département :</label>
+                <select id="stuDeptSelect">
+                    <option value="RT">Réseaux & Télécommunications (RT)</option>
+                    <option value="AUTO">Automatique (AUTO)</option>
+                    <option value="ELEC">Électronique (ELEC)</option>
+                    <option value="ELCT">Électrotechnique (ELCT)</option>
+                    <option value="CIL">Commande Industrielle (CIL)</option>
+                    <option value="BIO">Génie Biomédical (BIO)</option>
+                </select>
+            </div>
+            <div class="control-group">
+                <label for="stuGroupSelect">Niveau & Groupe :</label>
+                <select id="stuGroupSelect"></select>
+            </div>
+            <div class="control-group">
+                <label for="stuSearchInput">Rechercher par Matricule :</label>
+                <input type="text" id="stuSearchInput" placeholder="Ex: 21213104...">
+            </div>
+        </div>
+
+        <div style="margin-bottom: 0.8rem; font-weight: 700; font-size: 0.9rem;" id="studentsCountLabel"></div>
+
+        <div class="table-responsive" style="margin-bottom: 4rem;">
+            <table class="timetable" style="min-width: 650px;">
+                <thead>
+                    <tr>
+                        <th style="width: 70px;">N°</th>
+                        <th>Matricule</th>
+                        <th>Identifiant Étudiant</th>
+                        <th>Filière</th>
+                        <th>Groupe</th>
+                        <th>Statut Pédagogique</th>
+                    </tr>
+                </thead>
+                <tbody id="studentsTableBody"></tbody>
+            </table>
+        </div>
+
+        <!-- القسم الثاني: حاسبة المعدل بنظام LMD -->
+        <div class="section-title" id="calculateur">
+            <span>Simulateur de Moyenne Semestrielle (Système LMD)</span>
+            <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                <button id="addModuleRowBtn" class="btn btn-outline">+ Ajouter un Module</button>
+                <button id="resetLmdBtn" class="btn btn-outline">Réinitialiser</button>
+            </div>
+        </div>
+
+        <div class="table-responsive" style="margin-bottom: 1.5rem;">
+            <table class="timetable" style="min-width: 780px;">
+                <thead>
+                    <tr>
+                        <th style="text-align: start; padding-inline-start: 16px;">Intitulé du Module (UE)</th>
+                        <th style="width: 95px;">Coeff</th>
+                        <th style="width: 95px;">Crédits</th>
+                        <th style="width: 120px;">Note TD/TP (40%)</th>
+                        <th style="width: 120px;">Note Examen (60%)</th>
+                        <th style="width: 120px;">Moyenne /20</th>
+                        <th style="width: 70px;">Action</th>
+                    </tr>
+                </thead>
+                <tbody id="lmdTableBody"></tbody>
+            </table>
+        </div>
+
+        <!-- بطاقة النتيجة النهائية LMD -->
+        <div class="card" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1.5rem; border: 2px solid var(--primary);">
+            <div style="display: flex; gap: 2.5rem; flex-wrap: wrap;">
+                <div>
+                    <span style="font-size: 0.82rem; color: var(--text-muted); font-weight: 700; display: block;">MOYENNE GÉNÉRALE</span>
+                    <strong id="lmdFinalAvg" style="font-size: 2rem; color: var(--primary);">0.00 / 20</strong>
+                </div>
+                <div>
+                    <span style="font-size: 0.82rem; color: var(--text-muted); font-weight: 700; display: block;">CRÉDITS CAPITALISÉS</span>
+                    <strong id="lmdTotalCredits" style="font-size: 2rem;">0 / 30</strong>
+                </div>
+            </div>
+            <div>
+                <span id="lmdDecisionBadge" class="status-badge status-free" style="font-size: 0.95rem; padding: 8px 18px;">
+                    ADMIS — Semestre Validé
+                </span>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>© 2026-2027 Faculté de Technologie — Université M'hamed Bougara de Boumerdès (UMBB).</p>
+    </footer>
+
+    <script src="js/data.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/etudiants.js"></script>
+</body>
+</html>
