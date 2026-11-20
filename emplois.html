@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emplois du Temps S1 2026/2027 - Faculté de Technologie UMBB</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" type="image/jpeg" href="img/logo-ft.jpg">
+</head>
+<body>
+
+    <div class="top-bar">
+        <span>📧 contactft@univ-boumerdes.dz | 📞 +213 (0) 24 24 14 99</span>
+            <span class="top-bar-item">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        Faculté (Ex-INGM), Rue Mohamed El Mahdi — Boumerdès
+    </span>
+    </div>
+
+    <header>
+        <nav class="navbar">
+        <a href="index.html" class="logo">
+            <div class="logo-emblem">
+                <img src="img/logo-ft.jpg" onerror="this.onerror=null;this.src='img/logo-ft.png';" alt="Logo Faculté de Technologie UMBB">
+            </div>
+            <div class="logo-text-wrap">
+                <span class="logo-title">Faculté de Technologie</span>
+                <span class="logo-sub">Université M'hamed Bougara — Boumerdès</span>
+            </div>
+        </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Accueil & Plan</a></li>
+                <li><a href="emplois.html">Emplois du temps</a></li>
+                <li><a href="enseignants.html">Enseignants</a></li>
+                <li><a href="campus.html">Salles & Bibliothèque</a></li>
+                <li><a href="etudiants.html">Listes & Moyenne</a></li>
+                <li><a href="reclamation.html">Réclamations</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container" style="margin-top: 2.5rem;">
+    <div class="section-title">
+        <span>Emplois du Temps — Semestre 1 (2026/2027)</span>
+        <div class="no-print" style="display: flex; gap: 8px; flex-wrap: wrap;">
+            <button id="simulateTimeBtn" class="btn btn-outline">Simuler Lundi 10:00</button>
+            <button onclick="exportTimetableICS()" class="btn btn-accent">Exporter Google Calendar (.ics)</button>
+            <button onclick="window.print()" class="btn btn-outline">Imprimer / PDF</button>
+        </div>
+    </div>
+
+        <!-- أدوات الفلترة حسب التخصص والفوج -->
+        <div class="controls-bar">
+            <div class="control-group">
+                <label for="deptSelect">Filière / Spécialité :</label>
+                <select id="deptSelect">
+                    <option value="RT">Réseaux et Télécommunications (MRT / LTEL)</option>
+                    <option value="AUTO">Automatique et Informatique Ind. (MAI / LAUT)</option>
+                    <option value="ELEC">Électronique & Systèmes Embarqués (MESE / LELN)</option>
+                    <option value="ELCT">Électrotechnique & Machines Électriques (MME / LELECT)</option>
+                    <option value="CIL">Commande Industrielle (MCIL / LMCIL)</option>
+                    <option value="BIO">Génie Biomédical (MBIO / LBIO)</option>
+                </select>
+            </div>
+            <div class="control-group">
+                <label for="groupSelect">Niveau / Section / Groupe :</label>
+                <select id="groupSelect"></select>
+            </div>
+        </div>
+
+        <!-- جدول التوقيت الرسمي S1 2026/2027 -->
+        <div class="table-responsive">
+            <table class="timetable">
+                <thead>
+                    <tr>
+                        <th>Jour / Horaire</th>
+                        <th>08:00 - 09:30</th>
+                        <th>09:40 - 11:10</th>
+                        <th>11:20 - 12:50</th>
+                        <th>13:00 - 14:30</th>
+                        <th>14:40 - 16:10</th>
+                        <th>16:20 - 17:50</th>
+                    </tr>
+                </thead>
+                <tbody id="timetableBody">
+                    <!-- يتم ملؤه تلقائياً بواسطة JS -->
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <footer>
+        <p>© 2026-2027 Faculté de Technologie — Université M'hamed Bougara de Boumerdès (UMBB).</p>
+    </footer>
+
+    <script src="js/data.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

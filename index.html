@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Faculté de Technologie — UMBB | Portail des Départements</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" type="image/jpeg" href="img/logo-ft.jpg">
+</head>
+<body>
+
+    <!-- الشريط العلوي -->
+    <div class="top-bar">
+        <span class="top-bar-item">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            contactft@univ-boumerdes.dz
+        </span>
+        <span class="top-bar-item">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Faculté (Ex-INGM), Rue Mohamed El Mahdi — Boumerdès
+        </span>
+    </div>
+
+    <!-- شريط التنقل -->
+    <header>
+        <nav class="navbar">
+            <a href="index.html" class="logo">
+                <div class="logo-emblem">
+                    <img src="img/logo-ft.jpg" onerror="this.onerror=null;this.src='img/logo-ft.png';" alt="Logo Faculté de Technologie UMBB">
+                </div>
+                <div class="logo-text-wrap">
+                    <span class="logo-title" data-i18n="facultyName">Faculté de Technologie</span>
+                    <span class="logo-sub">Université M'hamed Bougara — Boumerdès</span>
+                </div>
+            </a>
+
+            <div class="nav-actions">
+                <button id="openSearchBtn" class="icon-btn" title="Recherche globale">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                    <span data-i18n="searchBtn">Rechercher</span>
+                    <span class="kbd-hint">Ctrl+K</span>
+                </button>
+                <button id="langToggle" class="icon-btn">AR / FR</button>
+                <button id="themeToggle" class="icon-btn" aria-label="Thème">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+                </button>
+                <button id="burgerBtn" class="burger-btn" aria-label="Menu">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+                </button>
+            </div>
+
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Accueil & Plan</a></li>
+                <li><a href="emplois.html">Emplois du temps</a></li>
+                <li><a href="enseignants.html">Enseignants</a></li>
+                <li><a href="campus.html">Salles & Bibliothèque</a></li>
+                <li><a href="etudiants.html">Listes & Moyenne</a></li>
+                <li><a href="reclamation.html">Réclamations</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- الواجهة الرئيسية غير المتماثلة + لوحة القاعات الفارغة والحصص الجارية -->
+    <section class="hero-section">
+        <div class="hero-main">
+            <div>
+                <span class="hero-tag" data-i18n="heroYear">Année Universitaire 2026 / 2027 — Semestre 1</span>
+                <h1 data-i18n="heroTitle">Gestion Pédagogique des Départements FT</h1>
+                <p data-i18n="heroDesc">Plateforme unifiée de la Faculté de Technologie : planning officiel en temps réel, annuaire des enseignants, listes d'étudiants, calculateur LMD et suivi des réclamations.</p>
+            </div>
+            <div class="hero-cta-group">
+                <a href="emplois.html" class="btn btn-accent" data-i18n="ctaSchedule">Consulter les Emplois du Temps</a>
+                <a href="#plan-site" class="btn" style="background: rgba(255,255,255,0.12);" data-i18n="ctaSitemap">Plan du Site</a>
+            </div>
+        </div>
+
+        <!-- لوحة الحالة الذكية المستخرجة من data.js -->
+        <aside class="live-panel">
+            <div class="live-header">
+                <span style="font-weight: 700; display: flex; align-items: center; gap: 8px;">
+                    <span class="live-dot"></span>
+                    <span id="liveTimeLabel">État du Campus en Direct</span>
+                </span>
+                <button id="simulateTimeBtn" class="icon-btn" style="font-size: 0.75rem; padding: 4px 8px;">Simuler Lundi 10:00</button>
+            </div>
+
+            <div>
+                <span style="font-size: 0.8rem; color: var(--text-muted); font-weight: 700;" data-i18n="liveActiveClasses">Séances actives en ce moment :</span>
+                <p id="activeClassesSummary" style="font-weight: 700; font-size: 0.95rem; margin-top: 3px;">Chargement...</p>
+            </div>
+
+            <div>
+                <span style="font-size: 0.8rem; color: var(--text-muted); font-weight: 700;" data-i18n="liveFreeRooms">Salles & Labos libres actuellement :</span>
+                <div class="live-rooms-list" id="freeRoomsContainer"></div>
+            </div>
+        </aside>
+    </section>
+
+    <!-- إحصائيات الكلية بعدّاد تصاعدي -->
+    <section class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/></svg></div>
+            <div><h3 class="counter" data-target="51">0</h3><span data-i18n="statSpec">Spécialités</span></div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+            <div><h3 class="counter" data-target="5200">0</h3><span data-i18n="statStud">Étudiants</span></div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></div>
+            <div><h3 class="counter" data-target="266">0</h3><span data-i18n="statProf">Enseignants</span></div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg></div>
+            <div><h3 class="counter" data-target="345">0</h3><span data-i18n="statDoc">Doctorants</span></div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></div>
+            <div><h3 class="counter" data-target="198">0</h3><span data-i18n="statAts">Personnel ATS</span></div>
+        </div>
+    </section>
+
+    <!-- الحاوية الرئيسية المنظمة -->
+    <main class="container" id="departements" style="margin-top: 3.5rem;">
+
+        <!-- 1. قسم الموقع الجغرافي والخريطة التفاعلية للكلية -->
+        <h2 class="section-title" id="localisation">
+            <span>Localisation & Accès au Campus (Boumerdès)</span>
+        </h2>
+
+        <div class="bento-grid campus-location-grid" style="margin-bottom: 4.5rem;">
+            <!-- بطاقة الهوية والعنوان الرسمي -->
+            <div class="bento-card span-5 campus-info-card">
+                <div>
+                    <div class="campus-brand-header">
+                        <img src="img/logo-ft.jpg" onerror="this.onerror=null;this.src='img/logo-ft.png';" alt="Emblème FT UMBB" class="campus-official-crest">
+                        <div>
+                            <span class="dept-code" style="margin-bottom: 4px;">CAMPUS EX-INGM</span>
+                            <h3 style="margin: 0; font-size: 1.15rem;">Faculté de Technologie</h3>
+                            <span style="font-size: 0.82rem; color: var(--text-muted);">Université M'hamed Bougara</span>
+                        </div>
+                    </div>
+
+                    <div class="campus-details-list">
+                        <div class="campus-detail-item">
+                            <strong>Adresse :</strong>
+                            <span>Faculté INGM, Rue Mohamed El Mahdi, Boumerdès 35000, Algérie</span>
+                        </div>
+                        <div class="campus-detail-item">
+                            <strong>Horaires Administration :</strong>
+                            <span>Dimanche — Jeudi : 08:00 à 16:30</span>
+                        </div>
+                        <div class="campus-detail-item">
+                            <strong>Accès & Transport :</strong>
+                            <span>À proximité de la gare ferroviaire SNTF de Boumerdès et des arrêts universitaires.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-actions" style="margin-top: 1.2rem;">
+                    <a href="https://www.google.com/maps/search/?api=1&query=Facult%C3%A9+ingm%2C+Rue+Mohamed+El+Mahdi%2C+Boumerd%C3%A8s" target="_blank" rel="noopener" class="btn btn-accent" style="width: 100%;">
+                        Ouvrir l'Itinéraire sur Google Maps
+                    </a>
+                </div>
+            </div>
+
+            <!-- الخريطة التفاعلية المدمجة -->
+            <div class="bento-card span-7 map-card-container">
+                <iframe
+                    class="campus-map-iframe"
+                    title="Carte Google Maps - Faculté de Technologie UMBB"
+                    src="https://maps.google.com/maps?q=Facult%C3%A9%20ingm%2C%20Rue%20Mohamed%20El%20Mahdi%2C%20Boumerd%C3%A8s&t=&z=16&ie=UTF8&iwloc=&output=embed"
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
+        </div>
+
+        <!-- 2. تخطيط Bento Grid للتخصصات (تم إصلاح التكرار والمسافات) -->
+        <h2 class="section-title" data-i18n="deptSectionTitle" style="margin-top: 1rem;">
+            <span>Filières & Spécialités (Département Génie Électrique)</span>
+        </h2>
+
+        <div class="bento-grid" style="margin-bottom: 4rem;">
+            <article class="bento-card span-7">
+                <div>
+                    <span class="dept-code">FILIÈRE RT • MASTER & LICENCE</span>
+                    <h3>Réseaux et Télécommunications (MRT / LTEL)</h3>
+                    <p>Formation spécialisée en réseaux sans fil, IoT, sécurité et cryptographie des réseaux, routage IP avancé, vidéo/audio sur IP et systèmes de télécommunications.</p>
+                </div>
+                <div class="card-actions">
+                    <a href="emplois.html?dept=RT" class="btn">Emplois du temps</a>
+                    <a href="enseignants.html?dept=RT" class="btn btn-outline">Enseignants (25)</a>
+                    <a href="etudiants.html?dept=RT" class="btn btn-outline">Listes</a>
+                </div>
+            </article>
+
+            <article class="bento-card span-5">
+                <div>
+                    <span class="dept-code">FILIÈRE AUTO</span>
+                    <h3>Automatique & Informatique Industrielle</h3>
+                    <p>Commande des robots, systèmes à événements discrets, programmation FPGA, supervision industrielle et identification des systèmes.</p>
+                </div>
+                <div class="card-actions">
+                    <a href="emplois.html?dept=AUTO" class="btn">Emplois du temps</a>
+                    <a href="enseignants.html?dept=AUTO" class="btn btn-outline">Enseignants</a>
+                </div>
+            </article>
+
+            <article class="bento-card span-4">
+                <div>
+                    <span class="dept-code">FILIÈRE ELEC</span>
+                    <h3>Électronique & Systèmes Embarqués</h3>
+                    <p>Architecture FPGA-VHDL, systèmes temps réel, microcontrôleurs, traitement avancé du signal et intelligence artificielle.</p>
+                </div>
+                <div class="card-actions">
+                    <a href="emplois.html?dept=ELEC" class="btn">Planning</a>
+                    <a href="enseignants.html?dept=ELEC" class="btn btn-outline">Enseignants</a>
+                </div>
+            </article>
+
+            <article class="bento-card span-4">
+                <div>
+                    <span class="dept-code">FILIÈRE ELCT</span>
+                    <h3>Électrotechnique & Machines Électriques</h3>
+                    <p>Électronique de puissance avancée, réseaux de transport et distribution, machines spéciales et CAO électrotechnique.</p>
+                </div>
+                <div class="card-actions">
+                    <a href="emplois.html?dept=ELCT" class="btn">Planning</a>
+                    <a href="enseignants.html?dept=ELCT" class="btn btn-outline">Enseignants</a>
+                </div>
+            </article>
+
+            <article class="bento-card span-4">
+                <div>
+                    <span class="dept-code">FILIÈRE CIL & BIO</span>
+                    <h3>Commande Industrielle & Génie Biomédical</h3>
+                    <p>Commande intelligente, instrumentation médicale, biocapteurs, imagerie médicale et radioprotection.</p>
+                </div>
+                <div class="card-actions">
+                    <a href="emplois.html?dept=CIL" class="btn">CIL</a>
+                    <a href="emplois.html?dept=BIO" class="btn btn-outline">Biomédical</a>
+                </div>
+            </article>
+        </div>
+
+        <!-- 3. خريطة الموقع Plan du Site -->
+        <h2 class="section-title" id="plan-site" style="margin-top: 3.5rem;" data-i18n="sitemapTitle">
+            <span>Plan du Site (Architecture Complète)</span>
+        </h2>
+        <div class="sitemap-box">
+            <div class="sitemap-tree">
+                <div class="sitemap-col">
+                    <h4>1. Accueil & État en Direct</h4>
+                    <ul>
+                        <li><a href="index.html">Présentation & Chiffres clés</a></li>
+                        <li><a href="#localisation">Localisation & Plan d'accès</a></li>
+                        <li><a href="#departements">Filières & Spécialités FT</a></li>
+                    </ul>
+                </div>
+                <div class="sitemap-col">
+                    <h4>2. Scolarité & Planning S1</h4>
+                    <ul>
+                        <li><a href="emplois.html">Emplois du temps (L3, M1, M2)</a></li>
+                        <li><a href="emplois.html">Export Google Calendar (.ics)</a></li>
+                    </ul>
+                </div>
+                <div class="sitemap-col">
+                    <h4>3. Corps Enseignant</h4>
+                    <ul>
+                        <li><a href="enseignants.html">Annuaire (140 Enseignants)</a></li>
+                        <li><a href="enseignants.html">Contact Email & Carte vCard (.vcf)</a></li>
+                    </ul>
+                </div>
+                <div class="sitemap-col">
+                    <h4>4. Espace Étudiant & Suivi</h4>
+                    <ul>
+                        <li><a href="etudiants.html">Listes d'étudiants & Export CSV</a></li>
+                        <li><a href="etudiants.html#calculateur">Calculateur de moyenne LMD</a></li>
+                        <li><a href="reclamation.html">Réclamations & Suivi de dossier</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- نافذة البحث الشامل Ctrl+K -->
+    <div class="cmd-overlay" id="cmdOverlay">
+        <div class="cmd-modal">
+            <div class="cmd-input-wrap">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                <input type="text" id="cmdInput" placeholder="Rechercher un enseignant, un module (ex: TECHNO-WEB) ou une salle (ex: AP4)...">
+                <button id="closeCmdBtn" class="icon-btn" style="padding: 3px 8px;">ESC</button>
+            </div>
+            <div class="cmd-results" id="cmdResults"></div>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2026-2027 Faculté de Technologie — Université M'hamed Bougara de Boumerdès (UMBB).</p>
+        <p style="font-size: 0.82rem; margin-top: 4px; color: #94a3b8;">Projet TPTec Web — Master 2 Réseaux et Télécommunications (M2RT)</p>
+    </footer>
+
+    <script src="js/data.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
