@@ -2179,3 +2179,334 @@ body {
         transition: scale 0.35s cubic-bezier(0.22, 1, 0.36, 1), transform 0.5s ease;
     }
 }
+
+/* =========================================================
+   تحسين العرض والتنظيم على شاشات الهواتف (Mobile Polish)
+   ========================================================= */
+@media (max-width: 768px) {
+    .container,
+    .hero-section,
+    .stats-grid {
+        padding-inline: 14px;
+    }
+
+    .hero-main {
+        padding: 1.5rem 1.25rem;
+    }
+
+    .hero-main h1 {
+        font-size: 1.55rem;
+    }
+
+    /* تنظيم تبويبات المكتبة والطوابق بشكل مريح على الهاتف */
+    .campus-tabs {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .campus-tabs .tab-btn {
+        width: 100%;
+        text-align: center;
+    }
+
+    .floor-tabs {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        width: 100%;
+    }
+
+    .floor-btn {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    /* منع خروج المجسم ثلاثي الأبعاد عن عرض شاشة الهاتف */
+    .iso-viewport {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 1rem 0.5rem !important;
+        overflow: hidden;
+    }
+
+    .iso-building {
+        scale: 0.54;
+        transform-origin: top center;
+        margin-bottom: -135px;
+    }
+
+    .floating-badge-dock {
+        position: static !important;
+        margin-top: 1.25rem !important;
+        z-index: 5;
+    }
+
+    /* ترتيب أزرار لوحة الطالب وشريط الدخول بشكل متناسق */
+    #studentLoginForm,
+    #studentDashboard {
+        flex-direction: column;
+        align-items: stretch !important;
+    }
+
+    #studentLoginForm input,
+    #studentLoginForm select,
+    #studentLoginForm button {
+        width: 100%;
+        max-width: 100% !important;
+    }
+
+    /* ضبط بطاقة الخريطة ومعلومات الكلية على الهاتف */
+    .campus-location-grid {
+        gap: 1.2rem;
+    }
+
+    .map-card-container,
+    .campus-map-iframe {
+        min-height: 270px;
+    }
+}
+
+@media (max-width: 480px) {
+    .iso-building {
+        scale: 0.43;
+        margin-bottom: -175px;
+    }
+
+    .student-badge-3d {
+        width: 198px;
+        height: 292px;
+    }
+}
+
+/* =========================================================
+   تحسين العرض والتنظيم على شاشات الهواتف (Mobile Polish)
+   ========================================================= */
+@media (max-width: 768px) {
+    .container,
+    .hero-section,
+    .stats-grid {
+        padding-inline: 14px;
+    }
+
+    .hero-main {
+        padding: 1.5rem 1.25rem;
+    }
+
+    .hero-main h1 {
+        font-size: 1.55rem;
+    }
+
+    .campus-tabs {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .campus-tabs .tab-btn {
+        width: 100%;
+        text-align: center;
+    }
+
+    .floor-tabs {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        width: 100%;
+    }
+
+    .floor-btn {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .iso-viewport {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: flex-start !important;
+        padding: 1rem 0.5rem 1.5rem !important;
+        overflow: hidden !important;
+    }
+
+    .iso-building {
+        scale: 0.52;
+        transform-origin: top center;
+        margin-bottom: -145px;
+    }
+
+    .floating-badge-dock {
+        position: static !important;
+        margin-top: 1.25rem !important;
+        z-index: 5;
+    }
+
+    #studentLoginForm,
+    #studentDashboard {
+        flex-direction: column;
+        align-items: stretch !important;
+    }
+
+    #studentLoginForm input,
+    #studentLoginForm select,
+    #studentLoginForm button {
+        width: 100%;
+        max-width: 100% !important;
+    }
+
+    .campus-location-grid {
+        gap: 1.2rem;
+    }
+
+    .map-card-container,
+    .campus-map-iframe {
+        min-height: 270px;
+    }
+}
+
+@media (max-width: 480px) {
+    .iso-building {
+        scale: 0.42;
+        margin-bottom: -180px;
+    }
+
+    .student-badge-3d {
+        width: 198px;
+        height: 292px;
+    }
+}
+
+.compact-qr-overlay {
+    background: rgba(15, 23, 42, 0.28) !important;
+    backdrop-filter: blur(2px);
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 16px !important;
+}
+
+.compact-qr-modal {
+    max-width: 280px !important;
+    width: 100% !important;
+    padding: 1.05rem 1.15rem !important;
+    text-align: center !important;
+    border-radius: 16px !important;
+    border: 2px solid var(--accent) !important;
+    box-shadow: 0 18px 42px rgba(14, 42, 92, 0.34) !important;
+    margin: auto !important;
+}
+
+@media (min-width: 860px) {
+    .iso-viewport {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: padding 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .iso-viewport:has(#floatingBadgeDock:not([style*="display: none"])) {
+        padding-inline-end: 245px;
+    }
+
+    .iso-viewport:has(#floatingBadgeDock:not([style*="display: none"])) .iso-building {
+        scale: 0.84;
+        transform-origin: center center;
+        transition: scale 0.35s cubic-bezier(0.22, 1, 0.36, 1), transform 0.5s ease;
+    }
+}
+
+@media (max-width: 768px) {
+    .compact-qr-overlay {
+        align-items: center !important;
+        justify-content: center !important;
+    }
+
+    .container,
+    .hero-section,
+    .stats-grid {
+        padding-inline: 14px;
+    }
+
+    .hero-main {
+        padding: 1.5rem 1.25rem;
+    }
+
+    .hero-main h1 {
+        font-size: 1.55rem;
+    }
+
+    .campus-tabs {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .campus-tabs .tab-btn {
+        width: 100%;
+        text-align: center;
+    }
+
+    .floor-tabs {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        width: 100%;
+    }
+
+    .floor-btn {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .iso-viewport {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: flex-start !important;
+        padding: 1rem 0.5rem 1.5rem !important;
+        overflow: hidden !important;
+    }
+
+    .iso-building {
+        scale: 0.52;
+        transform-origin: top center;
+        margin-bottom: -145px;
+    }
+
+    .floating-badge-dock {
+        position: static !important;
+        margin-top: 1.25rem !important;
+        z-index: 5;
+    }
+
+    #studentLoginForm,
+    #studentDashboard {
+        flex-direction: column;
+        align-items: stretch !important;
+    }
+
+    #studentLoginForm input,
+    #studentLoginForm select,
+    #studentLoginForm button {
+        width: 100%;
+        max-width: 100% !important;
+    }
+
+    .campus-location-grid {
+        gap: 1.2rem;
+    }
+
+    .map-card-container,
+    .campus-map-iframe {
+        min-height: 270px;
+    }
+}
+
+@media (max-width: 480px) {
+    .iso-building {
+        scale: 0.42;
+        margin-bottom: -180px;
+    }
+
+    .student-badge-3d {
+        width: 198px;
+        height: 292px;
+    }
+}
