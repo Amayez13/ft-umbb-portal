@@ -58,15 +58,12 @@
             <span>Espaces d'Étude & Bibliothèque Intelligente (FT)</span>
         </div>
 
-        <!-- أزرار التنقل بين محاكي القاعات الفارغة والمكتبة الذكية -->
         <div class="campus-tabs">
             <button class="tab-btn active" data-target="librarySection">Bibliothèque Intelligente (Vue 3D & Badge QR)</button>
             <button class="tab-btn" data-target="roomsSection">Simulateur de Salles Libres (Révision)</button>
         </div>
 
-        <!-- القسم الأول: المكتبة الذكية بنظام QR Code والبادج ثلاثي الأبعاد -->
         <section id="librarySection">
-            <!-- شريط أوقات العمل -->
             <div class="library-banner">
                 <div>
                     <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 4px;">
@@ -82,9 +79,7 @@
                 </div>
             </div>
 
-            <!-- شريط حساب الطالب ومتابعة المقعد المحجوز -->
             <div class="account-bar">
-                <!-- واجهة تسجيل الدخول السريع -->
                 <form id="studentLoginForm" style="display: flex; gap: 10px; flex-wrap: wrap; align-items: center; width: 100%;">
                     <span style="font-weight: 700;">Espace Étudiant :</span>
                     <input type="text" id="studentMatricule" placeholder="Matricule (ex: 202031029162)" required>
@@ -100,7 +95,6 @@
                     <button type="submit" class="btn btn-accent">Activer mon Badge 3D</button>
                 </form>
 
-                <!-- واجهة الطالب بعد تسجيل الدخول -->
                 <div id="studentDashboard" style="display: none; width: 100%; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
                     <div>
                         <div id="loggedStudentInfo" style="font-weight: 700; font-size: 1rem;"></div>
@@ -116,7 +110,6 @@
                 </div>
             </div>
 
-            <!-- المخطط المعماري ثلاثي الأبعاد متعدد الطوابق -->
             <div class="arch-wrapper">
                 <div class="arch-toolbar">
                     <div class="floor-tabs">
@@ -141,7 +134,6 @@
                     </div>
                 </div>
 
-                <!-- دليل الألوان -->
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; gap: 10px; font-size: 0.82rem; font-weight: 700;">
                     <div style="display: flex; gap: 16px; flex-wrap: wrap;">
                         <span><strong style="color: #059669;">■</strong> Table Libre (Cliquer pour QR)</span>
@@ -151,18 +143,15 @@
                     <span id="floorSubtitle" style="color: var(--text-muted);">1er Étage réservé à la réception, l'orientation et le prêt</span>
                 </div>
 
-                <!-- مسرح العرض ثلاثي الأبعاد + البادج الجامعي المعلق 3D -->
                 <div class="iso-viewport" id="isoViewportStage">
                     <div class="iso-building" id="isoBuilding"></div>
 
-                    <!-- البادج الجامعي ثلاثي الأبعاد المعلق بجانب الطاولات -->
                     <div class="floating-badge-dock" id="floatingBadgeDock" style="display: none;">
                         <div class="badge-lanyard-strap"></div>
                         <div class="badge-metal-clip"></div>
 
                         <div class="student-badge-3d" id="studentBadge3D" title="Cliquer pour retourner la carte (QR Pass)">
                             <div class="badge-inner" id="studentBadgeInner">
-                                <!-- الوجه الأمامي للبطاقة -->
                                 <div class="badge-face badge-front">
                                     <div class="badge-slot-hole"></div>
                                     <div class="badge-top-header">
@@ -193,7 +182,6 @@
                                     <div class="badge-glare"></div>
                                 </div>
 
-                                <!-- الوجه الخلفي للبطاقة (QR Code + مؤقت الـ 30 دقيقة) -->
                                 <div class="badge-face badge-back">
                                     <div class="badge-slot-hole"></div>
                                     <span class="badge-back-tag">PASS BIBLIOTHÈQUE 2026/2027</span>
@@ -209,7 +197,6 @@
             </div>
         </section>
 
-        <!-- القسم الثاني: محاكي البحث عن قاعة فارغة للمراجعة -->
         <section id="roomsSection" style="display: none;">
             <div class="controls-bar">
                 <div class="control-group">
@@ -250,20 +237,20 @@
         </section>
     </main>
 
-    <!-- نافذة QR Code الخاصة بكل طاولة -->
-    <div class="cmd-overlay" id="qrModal">
-        <div class="cmd-modal" style="max-width: 400px; text-align: center; padding: 1.8rem;">
-            <h3 id="qrModalTitle" style="margin-bottom: 6px;">Table T-01</h3>
-            <p id="qrModalSub" style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1.2rem;">Scannez ce QR Code fixé sur la table pour confirmer votre présence.</p>
-            <div id="qrSvgContainer" style="background: #fff; padding: 14px; border-radius: 12px; display: inline-block; border: 1px solid var(--border); margin-bottom: 1.2rem;"></div>
-            <div style="display: flex; gap: 10px; justify-content: center;">
-                <button id="confirmScanBtn" class="btn btn-accent">Simuler le Scan QR (Occuper)</button>
-                <button id="closeQrModalBtn" class="btn btn-outline">Fermer</button>
+    <!-- نافذة QR Code مصغرة وشفافة الخلفية لعدم حجب المشهد -->
+    <div class="cmd-overlay compact-qr-overlay" id="qrModal">
+        <div class="cmd-modal compact-qr-modal">
+            <h3 id="qrModalTitle" style="margin-bottom: 4px; font-size: 1rem;">Table T-01</h3>
+            <p id="qrModalSub" style="color: var(--text-muted); font-size: 0.76rem; margin-bottom: 0.75rem;">Confirmez pour voir la mise à jour directe.</p>
+            <div id="qrSvgContainer" style="background: #fff; padding: 8px; border-radius: 10px; display: inline-block; border: 1px solid var(--border); margin-bottom: 0.85rem; transform: scale(0.78); transform-origin: center;"></div>
+            <div style="display: flex; gap: 8px; justify-content: center;">
+                <button id="confirmScanBtn" class="btn btn-accent" style="padding: 7px 12px; font-size: 0.78rem;">Confirmer Table</button>
+                <button id="closeQrModalBtn" class="btn btn-outline" style="padding: 7px 10px; font-size: 0.78rem;">Fermer</button>
             </div>
         </div>
     </div>
 
-    <!-- نافذة معاينة البادج عند النقر على طاولة محجوزة في المكتبة -->
+    <!-- نافذة معاينة البادج عند النقر على طاولة محجوزة -->
     <div class="cmd-overlay" id="occupantBadgeModal">
         <div class="cmd-modal" style="max-width: 340px; text-align: center; padding: 1.6rem; background: transparent; box-shadow: none; border: none;">
             <div class="student-badge-3d is-modal-badge" style="margin: 0 auto;">
@@ -298,7 +285,6 @@
         </div>
     </div>
 
-    <!-- إشعار التحقق كل 30 دقيقة -->
     <div class="ping-toast" id="pingToast">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
             <strong style="color: var(--accent);">Vérification de présence (30 min)</strong>
@@ -321,7 +307,6 @@
     <script src="js/main.js"></script>
     <script src="js/campus.js"></script>
 
-    <!-- وحدة التحكم بالبادج ثلاثي الأبعاد المتحرك (Badge Étudiant 3D) -->
     <script>
     (function initStudentBadge3D() {
         const dock = document.getElementById("floatingBadgeDock");
@@ -417,7 +402,6 @@
             document.getElementById("badgeSpecialty").textContent = spec;
             document.getElementById("badgeInitials").textContent = getInitials(fullName);
 
-            // استخراج رقم الطاولة المحجوزة حالياً (مثل T-07)
             const tableMatch = seatInfo.match(/(T-\d+)/i);
             const tableTagEl = document.getElementById("badgeTableTag");
             const liveDotEl = document.getElementById("badgeLiveDot");
@@ -440,7 +424,6 @@
                 lastBookedTable = "";
             }
 
-            // تحديث المؤقت والـ QR في الوجه الخلفي
             document.getElementById("badgeBackTimer").textContent = timerText || "Aucune réservation active";
             const qrBox = document.getElementById("badgeBackQr");
             if (qrBox && !qrBox.dataset.rendered) {
@@ -460,7 +443,6 @@
             }
         }
 
-        // مراقبة تغيرات لوحة الطالب والمؤقت تلقائياً
         const observer = new MutationObserver(syncBadgeFromDOM);
         ["studentDashboard", "loggedStudentInfo", "activeSeatInfo", "seatTimerDisplay"].forEach(id => {
             const el = document.getElementById(id);
@@ -469,7 +451,6 @@
         setInterval(syncBadgeFromDOM, 1000);
         syncBadgeFromDOM();
 
-        // إظهار أو إخفاء البادج يدوياً
         if (toggleBtn) {
             toggleBtn.addEventListener("click", () => {
                 const isHidden = dock.style.display === "none";
@@ -478,12 +459,10 @@
             });
         }
 
-        // قلب البطاقة 180 درجة عند النقر
         badge3D.addEventListener("click", () => {
             badge3D.classList.toggle("is-flipped");
         });
 
-        // إمالة ثلاثية الأبعاد تفاعلية مع حركة الفأرة
         badge3D.addEventListener("mousemove", (e) => {
             const rect = badge3D.getBoundingClientRect();
             const x = (e.clientX - rect.left) / rect.width - 0.5;
@@ -499,7 +478,6 @@
             badge3D.style.setProperty("--tilt-y", "0deg");
         });
 
-        // عرض بادج الطالب الجالس عند النقر على أي طاولة محجوزة في المجسم 3D
         const SAMPLE_OCCUPANTS = [
             { name: "Mellah Sirine", mat: "202031041208", birth: "03/11/2002", spec: "M2 Réseaux & Télécoms" },
             { name: "Khelifi Youcef", mat: "212131058914", birth: "19/02/2003", spec: "M1 Automatique Ind." },
@@ -532,6 +510,49 @@
 
             occModal.classList.add("open");
         }, true);
+    })();
+    </script>
+
+    <div id="instantBookingToast" style="position: fixed; bottom: 22px; left: 50%; transform: translateX(-50%) translateY(20px); background: linear-gradient(135deg, #0e2a5c, #16428c); color: #fff; border: 2px solid #f97316; padding: 10px 18px; border-radius: 999px; font-weight: 700; font-size: 0.86rem; box-shadow: 0 12px 28px rgba(0,0,0,0.28); z-index: 9999; opacity: 0; pointer-events: none; transition: all 0.3s ease;"></div>
+
+    <script>
+    (function enhanceInstantTableConfirm() {
+        const confirmBtn = document.getElementById("confirmScanBtn");
+        const qrModal = document.getElementById("qrModal");
+        const toast = document.getElementById("instantBookingToast");
+        const stage = document.getElementById("isoViewportStage");
+        const dock = document.getElementById("floatingBadgeDock");
+        if (!confirmBtn || !toast) return;
+
+        confirmBtn.addEventListener("click", () => {
+            const titleText = document.getElementById("qrModalTitle")?.textContent || "Table";
+            toast.textContent = `✓ ${titleText} confirmée — Badge 3D mis à jour`;
+            toast.style.opacity = "1";
+            toast.style.transform = "translateX(-50%) translateY(0)";
+
+            if (qrModal) {
+                qrModal.classList.remove("open");
+                qrModal.style.display = "none";
+                setTimeout(() => { qrModal.style.display = ""; }, 220);
+            }
+
+            if (dock) {
+                dock.dataset.hiddenByUser = "false";
+                dock.style.display = "flex";
+            }
+
+            setTimeout(() => {
+                if (stage) {
+                    const topPos = stage.getBoundingClientRect().top + window.scrollY - 90;
+                    window.scrollTo({ top: Math.max(0, topPos), behavior: "smooth" });
+                }
+            }, 80);
+
+            setTimeout(() => {
+                toast.style.opacity = "0";
+                toast.style.transform = "translateX(-50%) translateY(20px)";
+            }, 3400);
+        });
     })();
     </script>
 </body>
