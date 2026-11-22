@@ -3,28 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Listes des Étudiants & Calculateur LMD — FT UMBB</title>
+    <title>Listes des Étudiants & Moyenne LMD — FT UMBB</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="icon" type="image/jpeg" href="img/logo-ft.jpg">
 </head>
 <body>
 
     <div class="top-bar">
-        <span class="top-bar-item">contactft@univ-boumerdes.dz</span>
-        <span class="top-bar-item">Cité Frantz Fanon — Boumerdès, Algérie</span>
+        <span class="top-bar-item">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            contactft@univ-boumerdes.dz
+        </span>
+        <span class="top-bar-item">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Faculté (Ex-INGM), Rue Mohamed El Mahdi — Boumerdès
+        </span>
     </div>
 
     <header>
         <nav class="navbar">
-        <a href="index.html" class="logo">
-            <div class="logo-emblem">
-                <img src="img/logo-ft.jpg" onerror="this.onerror=null;this.src='img/logo-ft.png';" alt="Logo Faculté de Technologie UMBB">
-            </div>
-            <div class="logo-text-wrap">
-                <span class="logo-title">Faculté de Technologie</span>
-                <span class="logo-sub">Université M'hamed Bougara — Boumerdès</span>
-            </div>
-        </a>
+            <a href="index.html" class="logo">
+                <div class="logo-emblem">
+                    <img src="img/logo-ft.jpg" onerror="this.onerror=null;this.src='img/logo-ft.png';" alt="Logo Faculté de Technologie UMBB">
+                </div>
+                <div class="logo-text-wrap">
+                    <span class="logo-title">Faculté de Technologie</span>
+                    <span class="logo-sub">Smart Campus — UMBB</span>
+                </div>
+            </a>
 
             <div class="nav-actions">
                 <button id="langToggle" class="icon-btn">AR / FR</button>
@@ -48,60 +54,64 @@
     </header>
 
     <main class="container" style="margin-top: 2.2rem;">
-        <!-- القسم الأول: قوائم الطلبة وتحميل CSV -->
-        <div class="section-title">
-            <span>Listes Officielles des Étudiants (S1 — 2026/2027)</span>
-            <button id="exportCsvBtn" class="btn btn-accent no-print">Télécharger la Liste (.CSV)</button>
-        </div>
-
-        <div class="card" style="margin-bottom: 1.5rem; border-inline-start: 4px solid var(--accent); padding: 1rem 1.3rem;">
-            <p style="font-size: 0.86rem; color: var(--text-muted); margin: 0;">
-                <strong>Protection des données personnelles :</strong> Conformément à la réglementation universitaire, les listes publiques affichent uniquement le numéro d'inscription (Matricule) et l'identifiant anonymisé de l'étudiant.
-            </p>
-        </div>
-
-        <div class="controls-bar">
-            <div class="control-group">
-                <label for="stuDeptSelect">Filière / Département :</label>
-                <select id="stuDeptSelect">
-                    <option value="RT">Réseaux & Télécommunications (RT)</option>
-                    <option value="AUTO">Automatique (AUTO)</option>
-                    <option value="ELEC">Électronique (ELEC)</option>
-                    <option value="ELCT">Électrotechnique (ELCT)</option>
-                    <option value="CIL">Commande Industrielle (CIL)</option>
-                    <option value="BIO">Génie Biomédical (BIO)</option>
-                </select>
+        <!-- =========================================================
+             القسم الأول: قوائم الطلبة والتوجيه حسب التخصص
+             ========================================================= -->
+        <section id="studentsDirectorySection">
+            <div class="section-title">
+                <span>Listes des Étudiants & Orientation — Faculté de Technologie</span>
             </div>
-            <div class="control-group">
-                <label for="stuGroupSelect">Niveau & Groupe :</label>
-                <select id="stuGroupSelect"></select>
+
+            <div class="controls-bar">
+                <div class="control-group" style="flex: 2;">
+                    <label for="studentSearchInput">Rechercher par Matricule ou Nom :</label>
+                    <input type="text" id="studentSearchInput" placeholder="Ex: 232331229903, REDDAF, KERRACH...">
+                </div>
+
+                <div class="control-group" style="flex: 1.4;">
+                    <label for="filiereFilterSelect">Filière / Spécialité :</label>
+                    <select id="filiereFilterSelect">
+                        <option value="ALL">Toutes les filières (11 Spécialités)</option>
+                        <option value="Génie civil">Génie civil</option>
+                        <option value="Génie biomédical">Génie biomédical</option>
+                        <option value="Électrotechnique">Électrotechnique</option>
+                        <option value="Électromécanique">Électromécanique</option>
+                        <option value="Génie industriel">Génie industriel</option>
+                        <option value="Génie mécanique">Génie mécanique</option>
+                        <option value="Électronique">Électronique</option>
+                        <option value="Télécommunications">Télécommunications</option>
+                        <option value="Hygiène et sécurité industrielle">Hygiène et sécurité industrielle</option>
+                        <option value="Génie des procédés">Génie des procédés</option>
+                        <option value="Automatique">Automatique</option>
+                    </select>
+                </div>
+
+                <div class="control-group" style="flex: 0.7; justify-content: flex-end;">
+                    <label>Effectif affiché :</label>
+                    <div id="studentsCountBadge" class="stu-count-pill">0 étudiants</div>
+                </div>
             </div>
-            <div class="control-group">
-                <label for="stuSearchInput">Rechercher par Matricule :</label>
-                <input type="text" id="stuSearchInput" placeholder="Ex: 21213104...">
+
+            <div class="stu-list-wrap">
+                <table class="stu-table" id="studentsListTable">
+                    <thead>
+                        <tr>
+                            <th style="width: 60px;">N°</th>
+                            <th style="width: 170px;">Matricule</th>
+                            <th>Nom & Prénom</th>
+                            <th>Filière d'orientation</th>
+                            <th style="width: 130px;">Moy. Classement</th>
+                        </tr>
+                    </thead>
+                    <tbody id="studentsListBody"></tbody>
+                </table>
             </div>
-        </div>
+        </section>
 
-        <div style="margin-bottom: 0.8rem; font-weight: 700; font-size: 0.9rem;" id="studentsCountLabel"></div>
-
-        <div class="table-responsive" style="margin-bottom: 4rem;">
-            <table class="timetable" style="min-width: 650px;">
-                <thead>
-                    <tr>
-                        <th style="width: 70px;">N°</th>
-                        <th>Matricule</th>
-                        <th>Identifiant Étudiant</th>
-                        <th>Filière</th>
-                        <th>Groupe</th>
-                        <th>Statut Pédagogique</th>
-                    </tr>
-                </thead>
-                <tbody id="studentsTableBody"></tbody>
-            </table>
-        </div>
-
-        <!-- محاكي المعدل الفصلي المطور (نظام LMD متكامل) -->
-        <section class="lmd-calc-wrapper" id="lmdCalcSection" style="margin-top: 2.5rem;">
+        <!-- =========================================================
+             القسم الثاني: محاكي المعدل الفصلي المطور (نظام LMD متكامل)
+             ========================================================= -->
+        <section class="lmd-calc-wrapper" id="lmdCalcSection" style="margin-top: 2.8rem;">
             <div class="lmd-calc-header">
                 <div>
                     <div class="section-title" style="margin-bottom: 4px;">
@@ -162,459 +172,691 @@
                 </div>
             </div>
         </section>
-
-        <style>
-            .lmd-calc-header {
-                display: flex;
-                justify-content: space-between;
-                align-items: flex-end;
-                flex-wrap: wrap;
-                gap: 14px;
-                margin-bottom: 1.1rem;
-            }
-            .lmd-calc-actions {
-                display: flex;
-                gap: 8px;
-                flex-wrap: wrap;
-                align-items: center;
-            }
-            .lmd-select {
-                padding: 9px 12px;
-                border-radius: 10px;
-                border: 1px solid var(--border);
-                background: var(--card-bg, #fff);
-                color: var(--text-main, #0f172a);
-                font-weight: 600;
-                font-size: 0.85rem;
-            }
-            .lmd-table-scroll {
-                width: 100%;
-                overflow-x: auto;
-                border-radius: 14px;
-                border: 1px solid var(--border);
-                background: var(--card-bg, #fff);
-                box-shadow: 0 6px 20px rgba(14, 42, 92, 0.06);
-            }
-            .lmd-table {
-                width: 100%;
-                border-collapse: collapse;
-                text-align: center;
-                font-size: 0.88rem;
-            }
-            .lmd-table thead {
-                background: #0e2a5c;
-                color: #fff;
-            }
-            .lmd-table th {
-                padding: 13px 10px;
-                font-weight: 700;
-                font-size: 0.82rem;
-                white-space: nowrap;
-            }
-            .lmd-table th:first-child {
-                text-align: left;
-                padding-inline-start: 16px;
-            }
-            .lmd-table td {
-                padding: 9px 8px;
-                border-bottom: 1px solid var(--border);
-                vertical-align: middle;
-            }
-            .lmd-table td:first-child {
-                padding-inline-start: 14px;
-            }
-            .lmd-table tbody tr:hover {
-                background: rgba(14, 42, 92, 0.03);
-            }
-            .lmd-input {
-                width: 100%;
-                padding: 7px 9px;
-                border-radius: 8px;
-                border: 1px solid var(--border);
-                background: var(--bg-main, #f8fafc);
-                color: var(--text-main, #0f172a);
-                font-weight: 600;
-                font-size: 0.85rem;
-                text-align: center;
-                transition: border-color 0.2s, opacity 0.2s;
-            }
-            .lmd-input.is-name {
-                text-align: left;
-            }
-            .lmd-input:focus {
-                outline: none;
-                border-color: var(--accent, #f97316);
-            }
-            .lmd-input:disabled {
-                opacity: 0.38;
-                cursor: not-allowed;
-                background: rgba(148, 163, 184, 0.16);
-            }
-            .lmd-mode-select {
-                width: 100%;
-                padding: 7px 8px;
-                border-radius: 8px;
-                border: 1px solid var(--border);
-                background: var(--bg-main, #f8fafc);
-                color: var(--text-main, #0f172a);
-                font-weight: 600;
-                font-size: 0.8rem;
-            }
-            .lmd-mod-avg {
-                display: inline-block;
-                min-width: 62px;
-                padding: 5px 10px;
-                border-radius: 999px;
-                font-weight: 800;
-                font-size: 0.85rem;
-                background: rgba(148, 163, 184, 0.16);
-                color: var(--text-muted);
-            }
-            .lmd-mod-avg.is-pass {
-                background: rgba(5, 150, 105, 0.14);
-                color: #059669;
-            }
-            .lmd-mod-avg.is-fail {
-                background: rgba(220, 38, 38, 0.14);
-                color: #dc2626;
-            }
-            .lmd-del-btn {
-                background: rgba(220, 38, 38, 0.1);
-                color: #dc2626;
-                border: 1px solid rgba(220, 38, 38, 0.25);
-                border-radius: 8px;
-                padding: 6px 10px;
-                font-weight: 700;
-                cursor: pointer;
-            }
-            .lmd-del-btn:hover {
-                background: #dc2626;
-                color: #fff;
-            }
-            .lmd-summary-card {
-                margin-top: 1.2rem;
-                padding: 1.35rem 1.6rem;
-                border-radius: 16px;
-                border: 1.5px solid #0e2a5c;
-                background: var(--card-bg, #fff);
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                flex-wrap: wrap;
-                gap: 16px;
-            }
-            .lmd-summary-metrics {
-                display: flex;
-                gap: 2.2rem;
-                flex-wrap: wrap;
-            }
-            .lmd-metric {
-                display: flex;
-                flex-direction: column;
-                gap: 4px;
-            }
-            .lmd-metric-label {
-                font-size: 0.74rem;
-                font-weight: 800;
-                letter-spacing: 0.5px;
-                color: var(--text-muted);
-            }
-            .lmd-metric-value {
-                font-size: 1.65rem;
-                font-weight: 900;
-                color: #0e2a5c;
-            }
-            body.dark-mode .lmd-metric-value {
-                color: #f8fafc;
-            }
-            .lmd-status-pill {
-                padding: 10px 20px;
-                border-radius: 999px;
-                font-weight: 800;
-                font-size: 0.9rem;
-            }
-            .lmd-status-pill.is-pending {
-                background: rgba(148, 163, 184, 0.18);
-                color: var(--text-muted);
-            }
-            .lmd-status-pill.is-admis {
-                background: rgba(16, 185, 129, 0.16);
-                color: #059669;
-                border: 1px solid rgba(16, 185, 129, 0.35);
-            }
-            .lmd-status-pill.is-ajourne {
-                background: rgba(239, 68, 68, 0.15);
-                color: #dc2626;
-                border: 1px solid rgba(239, 68, 68, 0.35);
-            }
-            @media (max-width: 768px) {
-                .lmd-summary-card {
-                    flex-direction: column;
-                    align-items: flex-start;
-                }
-                .lmd-summary-metrics {
-                    gap: 1.25rem;
-                }
-                .lmd-metric-value {
-                    font-size: 1.35rem;
-                }
-            }
-        </style>
-
-        <script>
-        (function initSmartLMDCalculator() {
-            const STORAGE_KEY = "ft_lmd_modules_v2";
-            const tbody = document.getElementById("lmdModulesBody");
-            const presetSelect = document.getElementById("lmdPresetSelect");
-            const addBtn = document.getElementById("addModuleBtn");
-            const resetBtn = document.getElementById("resetGradesBtn");
-            if (!tbody) return;
-
-            // قائمة مقاييس M2 Réseaux & Télécoms المطابقة تماماً لملف moyenne.py
-            const MRT_S1_PRESET = [
-                { name: "Administration Systèmes & Réseaux (ASR)", mode: "td_exam", coeff: 3, credits: 6, cc: "", exam: "" },
-                { name: "Traitement Numérique du Signal (DSP)", mode: "td_exam", coeff: 2, credits: 4, cc: "", exam: "" },
-                { name: "Codage & Théorie de l'Information", mode: "td_exam", coeff: 2, credits: 4, cc: "", exam: "" },
-                { name: "Antennes & Propagation", mode: "td_exam", coeff: 2, credits: 4, cc: "", exam: "" },
-                { name: "Intelligence Artificielle (AI)", mode: "tp_exam", coeff: 2, credits: 4, cc: "", exam: "" },
-                { name: "Réseaux Haut Débit (RHD)", mode: "tp_exam", coeff: 2, credits: 4, cc: "", exam: "" },
-                { name: "TP Administration Réseaux", mode: "tp_only", coeff: 1, credits: 1, cc: "", exam: "" },
-                { name: "TP DSP", mode: "tp_only", coeff: 1, credits: 1, cc: "", exam: "" },
-                { name: "TP Codage", mode: "tp_only", coeff: 1, credits: 1, cc: "", exam: "" },
-                { name: "Normes & Protocoles (Exposé)", mode: "tp_only", coeff: 1, credits: 1, cc: "", exam: "" }
-            ];
-
-            let modules = [];
-            try {
-                const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
-                modules = Array.isArray(saved) && saved.length ? saved : JSON.parse(JSON.stringify(MRT_S1_PRESET));
-            } catch (e) {
-                modules = JSON.parse(JSON.stringify(MRT_S1_PRESET));
-            }
-
-            function parseGrade(val) {
-                if (val === "" || val === null || val === undefined) return null;
-                const num = parseFloat(String(val).replace(",", "."));
-                if (isNaN(num)) return null;
-                return Math.min(20, Math.max(0, num));
-            }
-
-            function saveState() {
-                localStorage.setItem(STORAGE_KEY, JSON.stringify(modules));
-            }
-
-            function computeModuleAvg(mod) {
-                const cc = parseGrade(mod.cc);
-                const ex = parseGrade(mod.exam);
-
-                if (mod.mode === "tp_only") {
-                    return cc !== null ? cc : null;
-                }
-                if (mod.mode === "exam_only") {
-                    return ex !== null ? ex : null;
-                }
-                // حالتي td_exam و tp_exam (0.4 للـ TD/TP و 0.6 للامتحان)
-                if (cc === null && ex === null) return null;
-                const ccVal = cc !== null ? cc : 0;
-                const exVal = ex !== null ? ex : 0;
-                return 0.4 * ccVal + 0.6 * exVal;
-            }
-
-            function recalculateAll() {
-                let totalWeighted = 0;
-                let totalCoeff = 0;
-                let earnedCredits = 0;
-                let hasAnyGrade = false;
-
-                const rows = tbody.querySelectorAll("tr");
-                modules.forEach((mod, idx) => {
-                    const coeff = Math.max(0, parseFloat(mod.coeff) || 0);
-                    const credits = Math.max(0, parseFloat(mod.credits) || 0);
-                    const avg = computeModuleAvg(mod);
-
-                    totalCoeff += coeff;
-                    const avgBadge = rows[idx]?.querySelector(".lmd-mod-avg");
-
-                    if (avg !== null) {
-                        hasAnyGrade = true;
-                        totalWeighted += avg * coeff;
-                        if (avg >= 10) {
-                            earnedCredits += credits;
-                        }
-                        if (avgBadge) {
-                            avgBadge.textContent = avg.toFixed(2);
-                            avgBadge.className = "lmd-mod-avg " + (avg >= 10 ? "is-pass" : "is-fail");
-                        }
-                    } else if (avgBadge) {
-                        avgBadge.textContent = "—";
-                        avgBadge.className = "lmd-mod-avg";
-                    }
-                });
-
-                const generalAvg = totalCoeff > 0 ? totalWeighted / totalCoeff : 0;
-                const finalCredits = generalAvg >= 10 && hasAnyGrade ? 30 : earnedCredits;
-
-                document.getElementById("lmdGeneralAvg").textContent = `${generalAvg.toFixed(2)} / 20`;
-                document.getElementById("lmdTotalCoeff").textContent = totalCoeff;
-                document.getElementById("lmdTotalCredits").textContent = `${finalCredits} / 30`;
-
-                const statusEl = document.getElementById("lmdStatusBadge");
-                if (!hasAnyGrade) {
-                    statusEl.textContent = "En attente de saisie";
-                    statusEl.className = "lmd-status-pill is-pending";
-                } else if (generalAvg >= 10) {
-                    statusEl.textContent = "ADMIS — Semestre Validé";
-                    statusEl.className = "lmd-status-pill is-admis";
-                } else {
-                    statusEl.textContent = "AJOURNÉ — Session de Rattrapage";
-                    statusEl.className = "lmd-status-pill is-ajourne";
-                }
-
-                saveState();
-            }
-
-            function renderTable() {
-                tbody.innerHTML = "";
-                modules.forEach((mod, index) => {
-                    const tr = document.createElement("tr");
-                    const isTpOnly = mod.mode === "tp_only";
-                    const isExamOnly = mod.mode === "exam_only";
-                    const ccPlaceholder = mod.mode === "td_exam" ? "TD /20" : "TP /20";
-
-                    tr.innerHTML = `
-                        <td>
-                            <input type="text" class="lmd-input is-name" data-field="name" data-idx="${index}" value="${mod.name.replace(/"/g, "&quot;")}" placeholder="Nom du module">
-                        </td>
-                        <td>
-                            <select class="lmd-mode-select" data-field="mode" data-idx="${index}">
-                                <option value="td_exam" ${mod.mode === "td_exam" ? "selected" : ""}>TD (40%) + Exam (60%)</option>
-                                <option value="tp_exam" ${mod.mode === "tp_exam" ? "selected" : ""}>TP (40%) + Exam (60%)</option>
-                                <option value="tp_only" ${mod.mode === "tp_only" ? "selected" : ""}>100% TP / Exposé</option>
-                                <option value="exam_only" ${mod.mode === "exam_only" ? "selected" : ""}>100% Examen</option>
-                            </select>
-                        </td>
-                        <td>
-                            <input type="number" min="1" max="10" step="1" class="lmd-input" data-field="coeff" data-idx="${index}" value="${mod.coeff}">
-                        </td>
-                        <td>
-                            <input type="number" min="0" max="30" step="1" class="lmd-input" data-field="credits" data-idx="${index}" value="${mod.credits}">
-                        </td>
-                        <td>
-                            <input type="text" inputmode="decimal" class="lmd-input" data-field="cc" data-idx="${index}" value="${mod.cc}" placeholder="${isExamOnly ? "—" : ccPlaceholder}" ${isExamOnly ? "disabled" : ""}>
-                        </td>
-                        <td>
-                            <input type="text" inputmode="decimal" class="lmd-input" data-field="exam" data-idx="${index}" value="${mod.exam}" placeholder="${isTpOnly ? "—" : "Exam /20"}" ${isTpOnly ? "disabled" : ""}>
-                        </td>
-                        <td>
-                            <span class="lmd-mod-avg">—</span>
-                        </td>
-                        <td>
-                            <button type="button" class="lmd-del-btn" data-del="${index}" title="Supprimer">✕</button>
-                        </td>
-                    `;
-                    tbody.appendChild(tr);
-                });
-                recalculateAll();
-            }
-
-            tbody.addEventListener("input", (e) => {
-                const idx = e.target.dataset.idx;
-                const field = e.target.dataset.field;
-                if (idx === undefined || !field) return;
-                modules[idx][field] = e.target.value;
-                recalculateAll();
-            });
-
-            tbody.addEventListener("change", (e) => {
-                const idx = e.target.dataset.idx;
-                const field = e.target.dataset.field;
-                if (idx === undefined || field !== "mode") return;
-                modules[idx].mode = e.target.value;
-                if (modules[idx].mode === "tp_only") modules[idx].exam = "";
-                if (modules[idx].mode === "exam_only") modules[idx].cc = "";
-                renderTable();
-            });
-
-            tbody.addEventListener("click", (e) => {
-                const delIdx = e.target.dataset.del;
-                if (delIdx === undefined) return;
-                modules.splice(Number(delIdx), 1);
-                renderTable();
-            });
-
-            addBtn?.addEventListener("click", () => {
-                modules.push({
-                    name: `Nouveau Module ${modules.length + 1}`,
-                    mode: "td_exam",
-                    coeff: 2,
-                    credits: 4,
-                    cc: "",
-                    exam: ""
-                });
-                renderTable();
-            });
-
-            resetBtn?.addEventListener("click", () => {
-                modules.forEach(m => { m.cc = ""; m.exam = ""; });
-                renderTable();
-            });
-
-            presetSelect?.addEventListener("change", (e) => {
-                if (e.target.value === "mrt_s1") {
-                    modules = JSON.parse(JSON.stringify(MRT_S1_PRESET));
-                } else {
-                    modules = [{ name: "Module 1", mode: "td_exam", coeff: 2, credits: 4, cc: "", exam: "" }];
-                }
-                renderTable();
-            });
-
-            renderTable();
-        })();
-        </script>
-
-        <div class="table-responsive" style="margin-bottom: 1.5rem;">
-            <table class="timetable" style="min-width: 780px;">
-                <thead>
-                    <tr>
-                        <th style="text-align: start; padding-inline-start: 16px;">Intitulé du Module (UE)</th>
-                        <th style="width: 95px;">Coeff</th>
-                        <th style="width: 95px;">Crédits</th>
-                        <th style="width: 120px;">Note TD/TP (40%)</th>
-                        <th style="width: 120px;">Note Examen (60%)</th>
-                        <th style="width: 120px;">Moyenne /20</th>
-                        <th style="width: 70px;">Action</th>
-                    </tr>
-                </thead>
-                <tbody id="lmdTableBody"></tbody>
-            </table>
-        </div>
-
-        <!-- بطاقة النتيجة النهائية LMD -->
-        <div class="card" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1.5rem; border: 2px solid var(--primary);">
-            <div style="display: flex; gap: 2.5rem; flex-wrap: wrap;">
-                <div>
-                    <span style="font-size: 0.82rem; color: var(--text-muted); font-weight: 700; display: block;">MOYENNE GÉNÉRALE</span>
-                    <strong id="lmdFinalAvg" style="font-size: 2rem; color: var(--primary);">0.00 / 20</strong>
-                </div>
-                <div>
-                    <span style="font-size: 0.82rem; color: var(--text-muted); font-weight: 700; display: block;">CRÉDITS CAPITALISÉS</span>
-                    <strong id="lmdTotalCredits" style="font-size: 2rem;">0 / 30</strong>
-                </div>
-            </div>
-            <div>
-                <span id="lmdDecisionBadge" class="status-badge status-free" style="font-size: 0.95rem; padding: 8px 18px;">
-                    ADMIS — Semestre Validé
-                </span>
-            </div>
-        </div>
     </main>
 
     <footer>
         <p>© 2026-2027 Faculté de Technologie — Université M'hamed Bougara de Boumerdès (UMBB).</p>
     </footer>
 
+    <style>
+        /* تنسيق جدول وقوائم الطلبة */
+        .stu-count-pill {
+            padding: 10px 14px;
+            border-radius: 10px;
+            background: rgba(14, 42, 92, 0.08);
+            color: #0e2a5c;
+            font-weight: 800;
+            font-size: 0.86rem;
+            text-align: center;
+            border: 1px solid rgba(14, 42, 92, 0.16);
+        }
+        body.dark-mode .stu-count-pill {
+            background: rgba(249, 115, 22, 0.14);
+            color: #fdba74;
+            border-color: rgba(249, 115, 22, 0.3);
+        }
+        .stu-list-wrap {
+            width: 100%;
+            max-height: 360px;
+            overflow-y: auto;
+            border-radius: 14px;
+            border: 1px solid var(--border);
+            background: var(--card-bg, #fff);
+            box-shadow: 0 6px 20px rgba(14, 42, 92, 0.05);
+        }
+        .stu-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.88rem;
+            text-align: left;
+        }
+        .stu-table thead th {
+            position: sticky;
+            top: 0;
+            background: #0e2a5c;
+            color: #fff;
+            padding: 12px 14px;
+            font-weight: 700;
+            font-size: 0.82rem;
+            z-index: 2;
+        }
+        .stu-table td {
+            padding: 10px 14px;
+            border-bottom: 1px solid var(--border);
+        }
+        .stu-table tbody tr:hover {
+            background: rgba(14, 42, 92, 0.04);
+        }
+        .stu-filiere-tag {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 999px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            background: rgba(14, 42, 92, 0.09);
+            color: #0e2a5c;
+        }
+        body.dark-mode .stu-filiere-tag {
+            background: rgba(56, 189, 248, 0.14);
+            color: #7dd3fc;
+        }
+        .stu-moy-badge {
+            font-weight: 800;
+            color: #059669;
+        }
+        .stu-moy-badge.is-low {
+            color: #d97706;
+        }
+
+        /* تنسيق حاسبة المعدل LMD */
+        .lmd-calc-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            flex-wrap: wrap;
+            gap: 14px;
+            margin-bottom: 1.1rem;
+        }
+        .lmd-calc-actions {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        .lmd-select {
+            padding: 9px 12px;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            background: var(--card-bg, #fff);
+            color: var(--text-main, #0f172a);
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+        .lmd-table-scroll {
+            width: 100%;
+            overflow-x: auto;
+            border-radius: 14px;
+            border: 1px solid var(--border);
+            background: var(--card-bg, #fff);
+            box-shadow: 0 6px 20px rgba(14, 42, 92, 0.06);
+        }
+        .lmd-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: center;
+            font-size: 0.88rem;
+        }
+        .lmd-table thead {
+            background: #0e2a5c;
+            color: #fff;
+        }
+        .lmd-table th {
+            padding: 13px 10px;
+            font-weight: 700;
+            font-size: 0.82rem;
+            white-space: nowrap;
+        }
+        .lmd-table th:first-child {
+            text-align: left;
+            padding-inline-start: 16px;
+        }
+        .lmd-table td {
+            padding: 9px 8px;
+            border-bottom: 1px solid var(--border);
+            vertical-align: middle;
+        }
+        .lmd-table td:first-child {
+            padding-inline-start: 14px;
+        }
+        .lmd-table tbody tr:hover {
+            background: rgba(14, 42, 92, 0.03);
+        }
+        .lmd-input {
+            width: 100%;
+            padding: 8px 9px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            background: var(--bg-main, #f8fafc);
+            color: var(--text-main, #0f172a);
+            font-weight: 600;
+            font-size: 0.85rem;
+            text-align: center;
+            transition: border-color 0.2s, opacity 0.2s;
+        }
+        .lmd-input.is-name {
+            text-align: left;
+        }
+        .lmd-input:focus {
+            outline: none;
+            border-color: var(--accent, #f97316);
+        }
+        .lmd-input:disabled {
+            opacity: 0.38;
+            cursor: not-allowed;
+            background: rgba(148, 163, 184, 0.16);
+        }
+        .lmd-mode-select {
+            width: 100%;
+            padding: 8px 8px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            background: var(--bg-main, #f8fafc);
+            color: var(--text-main, #0f172a);
+            font-weight: 600;
+            font-size: 0.8rem;
+        }
+        .lmd-mod-avg {
+            display: inline-block;
+            min-width: 62px;
+            padding: 6px 10px;
+            border-radius: 999px;
+            font-weight: 800;
+            font-size: 0.85rem;
+            text-align: center;
+            background: rgba(148, 163, 184, 0.16);
+            color: var(--text-muted);
+        }
+        .lmd-mod-avg.is-pass {
+            background: rgba(5, 150, 105, 0.14);
+            color: #059669;
+        }
+        .lmd-mod-avg.is-fail {
+            background: rgba(220, 38, 38, 0.14);
+            color: #dc2626;
+        }
+        .lmd-del-btn {
+            background: rgba(220, 38, 38, 0.1);
+            color: #dc2626;
+            border: 1px solid rgba(220, 38, 38, 0.25);
+            border-radius: 8px;
+            padding: 7px 11px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+        .lmd-del-btn:hover {
+            background: #dc2626;
+            color: #fff;
+        }
+        .lmd-summary-card {
+            margin-top: 1.2rem;
+            padding: 1.35rem 1.6rem;
+            border-radius: 16px;
+            border: 1.5px solid #0e2a5c;
+            background: var(--card-bg, #fff);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+        .lmd-summary-metrics {
+            display: flex;
+            gap: 2.2rem;
+            flex-wrap: wrap;
+        }
+        .lmd-metric {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        .lmd-metric-label {
+            font-size: 0.74rem;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            color: var(--text-muted);
+        }
+        .lmd-metric-value {
+            font-size: 1.65rem;
+            font-weight: 900;
+            color: #0e2a5c;
+        }
+        body.dark-mode .lmd-metric-value {
+            color: #f8fafc;
+        }
+        .lmd-status-pill {
+            padding: 10px 20px;
+            border-radius: 999px;
+            font-weight: 800;
+            font-size: 0.9rem;
+        }
+        .lmd-status-pill.is-pending {
+            background: rgba(148, 163, 184, 0.18);
+            color: var(--text-muted);
+        }
+        .lmd-status-pill.is-admis {
+            background: rgba(16, 185, 129, 0.16);
+            color: #059669;
+            border: 1px solid rgba(16, 185, 129, 0.35);
+        }
+        .lmd-status-pill.is-ajourne {
+            background: rgba(239, 68, 68, 0.15);
+            color: #dc2626;
+            border: 1px solid rgba(239, 68, 68, 0.35);
+        }
+
+        /* تجاوب الهواتف والتابلت بدون أي تمرير أفقي */
+        @media (max-width: 860px) {
+            .stu-list-wrap {
+                max-height: 420px;
+                border: none;
+                background: transparent;
+                box-shadow: none;
+            }
+            .stu-table,
+            .stu-table tbody {
+                display: block;
+                width: 100%;
+            }
+            .stu-table thead {
+                display: none;
+            }
+            .stu-table tbody tr {
+                display: flex;
+                flex-direction: column;
+                gap: 6px;
+                padding: 12px 14px;
+                margin-bottom: 10px;
+                border-radius: 14px;
+                border: 1px solid var(--border);
+                background: var(--card-bg, #fff);
+                box-shadow: 0 4px 12px rgba(14, 42, 92, 0.05);
+            }
+            body.dark-mode .stu-table tbody tr {
+                background: #1e293b;
+                border-color: #334155;
+            }
+            .stu-table td {
+                padding: 0 !important;
+                border: none !important;
+            }
+            .stu-table td:nth-child(1) {
+                display: none;
+            }
+
+            .lmd-calc-actions {
+                width: 100%;
+            }
+            .lmd-calc-actions .lmd-select,
+            .lmd-calc-actions .btn {
+                flex: 1 1 auto;
+                text-align: center;
+            }
+            .lmd-table-scroll {
+                border: none;
+                background: transparent;
+                box-shadow: none;
+                overflow: visible;
+            }
+            .lmd-table,
+            .lmd-table tbody {
+                display: block;
+                width: 100%;
+            }
+            .lmd-table thead {
+                display: none;
+            }
+            .lmd-table tbody tr {
+                display: grid;
+                grid-template-columns: 1fr 1fr 1fr;
+                gap: 10px 8px;
+                background: var(--card-bg, #ffffff);
+                border: 1.5px solid var(--border, #e2e8f0);
+                border-radius: 16px;
+                padding: 13px;
+                margin-bottom: 12px;
+                box-shadow: 0 6px 18px rgba(14, 42, 92, 0.06);
+            }
+            body.dark-mode .lmd-table tbody tr {
+                background: #1e293b;
+                border-color: #334155;
+            }
+            .lmd-table td {
+                display: flex;
+                flex-direction: column;
+                align-items: stretch;
+                padding: 0 !important;
+                border: none !important;
+                text-align: left;
+            }
+            .lmd-table td[data-label]::before {
+                content: attr(data-label);
+                font-size: 0.68rem;
+                font-weight: 800;
+                color: var(--text-muted, #64748b);
+                margin-bottom: 4px;
+                text-transform: uppercase;
+            }
+            .lmd-table td:nth-child(1) { grid-column: 1 / 3; }
+            .lmd-table td:nth-child(8) { grid-column: 3 / 4; align-items: flex-end; justify-content: flex-end; }
+            .lmd-table td:nth-child(2) { grid-column: 1 / 2; }
+            .lmd-table td:nth-child(3) { grid-column: 2 / 3; }
+            .lmd-table td:nth-child(4) { grid-column: 3 / 4; }
+            .lmd-table td:nth-child(5) { grid-column: 1 / 2; }
+            .lmd-table td:nth-child(6) { grid-column: 2 / 3; }
+            .lmd-table td:nth-child(7) { grid-column: 3 / 4; justify-content: flex-end; }
+
+            .lmd-summary-card {
+                flex-direction: column;
+                align-items: stretch;
+                text-align: center;
+            }
+            .lmd-summary-metrics {
+                justify-content: space-around;
+                gap: 1rem;
+            }
+            .lmd-metric-value {
+                font-size: 1.35rem;
+            }
+        }
+    </style>
+
     <script src="js/data.js"></script>
     <script src="js/main.js"></script>
-    <script src="js/etudiants.js"></script>
+
+    <script>
+    /* =========================================================
+       1. وحدة عرض والبحث في قوائم الطلبة والتوجيه (FT UMBB)
+       ========================================================= */
+    (function initStudentsDirectory() {
+        const tbody = document.getElementById("studentsListBody");
+        const searchInput = document.getElementById("studentSearchInput");
+        const filiereSelect = document.getElementById("filiereFilterSelect");
+        const countBadge = document.getElementById("studentsCountBadge");
+        if (!tbody) return;
+
+        const ORIENTATION_STUDENTS = [
+            { mat: "232331229903", nom: "REDDAF ABDESLAM", filiere: "Génie civil", moy: "15.16" },
+            { mat: "242431256603", nom: "HAMMAMI HADIL", filiere: "Génie civil", moy: "12.02" },
+            { mat: "242431217506", nom: "RAHAB MARIA", filiere: "Génie civil", moy: "11.99" },
+            { mat: "242431275818", nom: "TAFLIS AMINA", filiere: "Génie civil", moy: "11.53" },
+            { mat: "242431256220", nom: "LAGHA ILYAS", filiere: "Génie civil", moy: "11.43" },
+            { mat: "242431573604", nom: "KASSOUR RANIA", filiere: "Génie biomédical", moy: "13.41" },
+            { mat: "24248PSE23854", nom: "HASSOUNA SHAHD", filiere: "Génie biomédical", moy: "12.55" },
+            { mat: "242431243501", nom: "CHIBANI KAWTHER", filiere: "Génie biomédical", moy: "11.88" },
+            { mat: "242431263816", nom: "TARIKET SIFEDDINE", filiere: "Génie biomédical", moy: "11.74" },
+            { mat: "192431544201", nom: "LARKEM IKRAM", filiere: "Électrotechnique", moy: "14.31" },
+            { mat: "242431538220", nom: "KHITER MOHAMED HANI", filiere: "Électrotechnique", moy: "13.93" },
+            { mat: "232331236106", nom: "OUCHAOUCHI ABDELLAH", filiere: "Électrotechnique", moy: "13.58" },
+            { mat: "242431578815", nom: "DENNI INES", filiere: "Électrotechnique", moy: "12.39" },
+            { mat: "242431484909", nom: "SAHI ABDELOUAHAB", filiere: "Électromécanique", moy: "14.32" },
+            { mat: "242431525120", nom: "MOUNA ISLAM AMINE", filiere: "Électromécanique", moy: "13.46" },
+            { mat: "242431263409", nom: "BOUTELDJI AYOUB", filiere: "Électromécanique", moy: "11.72" },
+            { mat: "242431236301", nom: "KOUZ DJAAFER", filiere: "Électromécanique", moy: "11.51" },
+            { mat: "242431483220", nom: "HAMMOUCHE AMYAS", filiere: "Génie industriel", moy: "10.33" },
+            { mat: "232431321612", nom: "ACHOURI ZINEB", filiere: "Génie industriel", moy: "10.00" },
+            { mat: "232331386014", nom: "BENABDELLAH ABDELHAMID", filiere: "Génie industriel", moy: "9.88" },
+            { mat: "232431317716", nom: "BEN MESSAOUD YENNI", filiere: "Génie mécanique", moy: "11.90" },
+            { mat: "242431564107", nom: "MAKHLAF YANIS IDIR", filiere: "Génie mécanique", moy: "11.83" },
+            { mat: "232431322716", nom: "AMROUCHE TINHINANE", filiere: "Génie mécanique", moy: "11.44" },
+            { mat: "242431281317", nom: "KERRACH MOUSSA", filiere: "Électronique", moy: "15.05" },
+            { mat: "242431454211", nom: "KASDI RYM", filiere: "Électronique", moy: "14.53" },
+            { mat: "242431290004", nom: "BOUCHOU AMIRA", filiere: "Électronique", moy: "13.67" },
+            { mat: "212131037904", nom: "ALEM ASMA", filiere: "Télécommunications", moy: "15.02" },
+            { mat: "242431290311", nom: "AFRA WISSAM", filiere: "Télécommunications", moy: "12.95" },
+            { mat: "242431275913", nom: "AOUDA IMANE", filiere: "Télécommunications", moy: "12.89" },
+            { mat: "242431209410", nom: "AMORA KAOUTHER", filiere: "Télécommunications", moy: "12.84" },
+            { mat: "232331199502", nom: "ROUMANE MARIA SIRINE", filiere: "Hygiène et sécurité industrielle", moy: "10.94" },
+            { mat: "242431269904", nom: "KHERMIMOUN INES", filiere: "Hygiène et sécurité industrielle", moy: "10.02" },
+            { mat: "232431302910", nom: "BOUANZOUL FAIZA", filiere: "Génie des procédés", moy: "12.30" },
+            { mat: "242431216209", nom: "HAMOUNI ZEYNEB", filiere: "Génie des procédés", moy: "12.29" },
+            { mat: "24248NER24835", nom: "BACHIR DA BOUZOUA AICHA", filiere: "Génie des procédés", moy: "12.12" },
+            { mat: "242431453206", nom: "TIGHILT GAYA", filiere: "Automatique", moy: "14.53" },
+            { mat: "232331250910", nom: "MARMOUCHI YASMINE", filiere: "Automatique", moy: "13.80" },
+            { mat: "242431223101", nom: "SEMIR NOURELHOUDA", filiere: "Automatique", moy: "13.68" }
+        ];
+
+        // دمج أي طلبة إضافيين من data.js إن وجدوا
+        const extraStudents = (window.FT_DATA && Array.isArray(window.FT_DATA.students))
+            ? window.FT_DATA.students.map(s => ({
+                mat: s.matricule || s.mat || "—",
+                nom: s.name || s.nom || "Étudiant FT",
+                filiere: s.filiere || s.dept || "Télécommunications",
+                moy: s.moy || "—"
+            }))
+            : [];
+
+        const ALL_STUDENTS = [...ORIENTATION_STUDENTS, ...extraStudents];
+
+        function renderStudents() {
+            const q = (searchInput?.value || "").trim().toLowerCase();
+            const fil = filiereSelect?.value || "ALL";
+
+            const filtered = ALL_STUDENTS.filter(st => {
+                const matchFiliere = fil === "ALL" || st.filiere.toLowerCase() === fil.toLowerCase();
+                const matchQuery = !q || st.mat.toLowerCase().includes(q) || st.nom.toLowerCase().includes(q) || st.filiere.toLowerCase().includes(q);
+                return matchFiliere && matchQuery;
+            });
+
+            if (countBadge) {
+                countBadge.textContent = `${filtered.length} étudiant${filtered.length > 1 ? "s" : ""}`;
+            }
+
+            if (!filtered.length) {
+                tbody.innerHTML = `<tr><td colspan="5" style="text-align:center; padding: 18px; color: var(--text-muted);">Aucun étudiant trouvé pour cette recherche.</td></tr>`;
+                return;
+            }
+
+            tbody.innerHTML = filtered.map((st, idx) => {
+                const moyNum = parseFloat(String(st.moy).replace(",", "."));
+                const isLow = !isNaN(moyNum) && moyNum < 10;
+                return `
+                    <tr>
+                        <td><strong>${idx + 1}</strong></td>
+                        <td><code style="font-weight:700;">${st.mat}</code></td>
+                        <td><strong>${st.nom}</strong></td>
+                        <td><span class="stu-filiere-tag">${st.filiere}</span></td>
+                        <td><span class="stu-moy-badge ${isLow ? "is-low" : ""}">${st.moy} / 20</span></td>
+                    </tr>
+                `;
+            }).join("");
+        }
+
+        searchInput?.addEventListener("input", renderStudents);
+        filiereSelect?.addEventListener("change", renderStudents);
+        renderStudents();
+    })();
+
+    /* =========================================================
+       2. حاسبة المعدل الفصلي المطور (نظام LMD متكامل)
+       ========================================================= */
+    (function initSmartLMDCalculator() {
+        const STORAGE_KEY = "ft_lmd_modules_v2";
+        const tbody = document.getElementById("lmdModulesBody");
+        const presetSelect = document.getElementById("lmdPresetSelect");
+        const addBtn = document.getElementById("addModuleBtn");
+        const resetBtn = document.getElementById("resetGradesBtn");
+        if (!tbody) return;
+
+        const MRT_S1_PRESET = [
+            { name: "Administration Systèmes & Réseaux (ASR)", mode: "td_exam", coeff: 3, credits: 6, cc: "", exam: "" },
+            { name: "Traitement Numérique du Signal (DSP)", mode: "td_exam", coeff: 2, credits: 4, cc: "", exam: "" },
+            { name: "Codage & Théorie de l'Information", mode: "td_exam", coeff: 2, credits: 4, cc: "", exam: "" },
+            { name: "Antennes & Propagation", mode: "td_exam", coeff: 2, credits: 4, cc: "", exam: "" },
+            { name: "Intelligence Artificielle (AI)", mode: "tp_exam", coeff: 2, credits: 4, cc: "", exam: "" },
+            { name: "Réseaux Haut Débit (RHD)", mode: "tp_exam", coeff: 2, credits: 4, cc: "", exam: "" },
+            { name: "TP Administration Réseaux", mode: "tp_only", coeff: 1, credits: 1, cc: "", exam: "" },
+            { name: "TP DSP", mode: "tp_only", coeff: 1, credits: 1, cc: "", exam: "" },
+            { name: "TP Codage", mode: "tp_only", coeff: 1, credits: 1, cc: "", exam: "" },
+            { name: "Normes & Protocoles (Exposé)", mode: "tp_only", coeff: 1, credits: 1, cc: "", exam: "" }
+        ];
+
+        let modules = [];
+        try {
+            const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
+            modules = Array.isArray(saved) && saved.length ? saved : JSON.parse(JSON.stringify(MRT_S1_PRESET));
+        } catch (e) {
+            modules = JSON.parse(JSON.stringify(MRT_S1_PRESET));
+        }
+
+        function parseGrade(val) {
+            if (val === "" || val === null || val === undefined) return null;
+            const num = parseFloat(String(val).replace(",", "."));
+            if (isNaN(num)) return null;
+            return Math.min(20, Math.max(0, num));
+        }
+
+        function saveState() {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(modules));
+        }
+
+        function computeModuleAvg(mod) {
+            const cc = parseGrade(mod.cc);
+            const ex = parseGrade(mod.exam);
+
+            if (mod.mode === "tp_only") return cc !== null ? cc : null;
+            if (mod.mode === "exam_only") return ex !== null ? ex : null;
+            if (cc === null && ex === null) return null;
+            return 0.4 * (cc !== null ? cc : 0) + 0.6 * (ex !== null ? ex : 0);
+        }
+
+        function recalculateAll() {
+            let totalWeighted = 0;
+            let totalCoeff = 0;
+            let earnedCredits = 0;
+            let hasAnyGrade = false;
+
+            const rows = tbody.querySelectorAll("tr");
+            modules.forEach((mod, idx) => {
+                const coeff = Math.max(0, parseFloat(mod.coeff) || 0);
+                const credits = Math.max(0, parseFloat(mod.credits) || 0);
+                const avg = computeModuleAvg(mod);
+
+                totalCoeff += coeff;
+                const avgBadge = rows[idx]?.querySelector(".lmd-mod-avg");
+
+                if (avg !== null) {
+                    hasAnyGrade = true;
+                    totalWeighted += avg * coeff;
+                    if (avg >= 10) earnedCredits += credits;
+                    if (avgBadge) {
+                        avgBadge.textContent = avg.toFixed(2);
+                        avgBadge.className = "lmd-mod-avg " + (avg >= 10 ? "is-pass" : "is-fail");
+                    }
+                } else if (avgBadge) {
+                    avgBadge.textContent = "—";
+                    avgBadge.className = "lmd-mod-avg";
+                }
+            });
+
+            const generalAvg = totalCoeff > 0 ? totalWeighted / totalCoeff : 0;
+            const finalCredits = generalAvg >= 10 && hasAnyGrade ? 30 : earnedCredits;
+
+            document.getElementById("lmdGeneralAvg").textContent = `${generalAvg.toFixed(2)} / 20`;
+            document.getElementById("lmdTotalCoeff").textContent = totalCoeff;
+            document.getElementById("lmdTotalCredits").textContent = `${finalCredits} / 30`;
+
+            const statusEl = document.getElementById("lmdStatusBadge");
+            if (!hasAnyGrade) {
+                statusEl.textContent = "En attente de saisie";
+                statusEl.className = "lmd-status-pill is-pending";
+            } else if (generalAvg >= 10) {
+                statusEl.textContent = "ADMIS — Semestre Validé";
+                statusEl.className = "lmd-status-pill is-admis";
+            } else {
+                statusEl.textContent = "AJOURNÉ — Session de Rattrapage";
+                statusEl.className = "lmd-status-pill is-ajourne";
+            }
+
+            saveState();
+        }
+
+        function renderTable() {
+            tbody.innerHTML = "";
+            modules.forEach((mod, index) => {
+                const tr = document.createElement("tr");
+                const isTpOnly = mod.mode === "tp_only";
+                const isExamOnly = mod.mode === "exam_only";
+                const ccPlaceholder = mod.mode === "td_exam" ? "TD /20" : "TP /20";
+
+                tr.innerHTML = `
+                    <td data-label="Module">
+                        <input type="text" class="lmd-input is-name" data-field="name" data-idx="${index}" value="${mod.name.replace(/"/g, "&quot;")}" placeholder="Nom du module">
+                    </td>
+                    <td data-label="Évaluation">
+                        <select class="lmd-mode-select" data-field="mode" data-idx="${index}">
+                            <option value="td_exam" ${mod.mode === "td_exam" ? "selected" : ""}>TD 40% + Ex 60%</option>
+                            <option value="tp_exam" ${mod.mode === "tp_exam" ? "selected" : ""}>TP 40% + Ex 60%</option>
+                            <option value="tp_only" ${mod.mode === "tp_only" ? "selected" : ""}>100% TP / Exposé</option>
+                            <option value="exam_only" ${mod.mode === "exam_only" ? "selected" : ""}>100% Examen</option>
+                        </select>
+                    </td>
+                    <td data-label="Coeff">
+                        <input type="number" min="1" max="10" step="1" class="lmd-input" data-field="coeff" data-idx="${index}" value="${mod.coeff}">
+                    </td>
+                    <td data-label="Crédits">
+                        <input type="number" min="0" max="30" step="1" class="lmd-input" data-field="credits" data-idx="${index}" value="${mod.credits}">
+                    </td>
+                    <td data-label="${mod.mode === "td_exam" ? "Note TD" : "Note TP"}">
+                        <input type="text" inputmode="decimal" class="lmd-input" data-field="cc" data-idx="${index}" value="${mod.cc}" placeholder="${isExamOnly ? "—" : ccPlaceholder}" ${isExamOnly ? "disabled" : ""}>
+                    </td>
+                    <td data-label="Examen">
+                        <input type="text" inputmode="decimal" class="lmd-input" data-field="exam" data-idx="${index}" value="${mod.exam}" placeholder="${isTpOnly ? "—" : "Exam /20"}" ${isTpOnly ? "disabled" : ""}>
+                    </td>
+                    <td data-label="Moyenne">
+                        <span class="lmd-mod-avg">—</span>
+                    </td>
+                    <td>
+                        <button type="button" class="lmd-del-btn" data-del="${index}" title="Supprimer">✕</button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+            recalculateAll();
+        }
+
+        tbody.addEventListener("input", (e) => {
+            const idx = e.target.dataset.idx;
+            const field = e.target.dataset.field;
+            if (idx === undefined || !field) return;
+            modules[idx][field] = e.target.value;
+            recalculateAll();
+        });
+
+        tbody.addEventListener("change", (e) => {
+            const idx = e.target.dataset.idx;
+            const field = e.target.dataset.field;
+            if (idx === undefined || field !== "mode") return;
+            modules[idx].mode = e.target.value;
+            if (modules[idx].mode === "tp_only") modules[idx].exam = "";
+            if (modules[idx].mode === "exam_only") modules[idx].cc = "";
+            renderTable();
+        });
+
+        tbody.addEventListener("click", (e) => {
+            const delIdx = e.target.dataset.del;
+            if (delIdx === undefined) return;
+            modules.splice(Number(delIdx), 1);
+            renderTable();
+        });
+
+        addBtn?.addEventListener("click", () => {
+            modules.push({
+                name: `Nouveau Module ${modules.length + 1}`,
+                mode: "td_exam",
+                coeff: 2,
+                credits: 4,
+                cc: "",
+                exam: ""
+            });
+            renderTable();
+        });
+
+        resetBtn?.addEventListener("click", () => {
+            modules.forEach(m => { m.cc = ""; m.exam = ""; });
+            renderTable();
+        });
+
+        presetSelect?.addEventListener("change", (e) => {
+            if (e.target.value === "mrt_s1") {
+                modules = JSON.parse(JSON.stringify(MRT_S1_PRESET));
+            } else {
+                modules = [{ name: "Module 1", mode: "td_exam", coeff: 2, credits: 4, cc: "", exam: "" }];
+            }
+            renderTable();
+        });
+
+        renderTable();
+    })();
+    </script>
 </body>
 </html>
