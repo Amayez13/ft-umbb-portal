@@ -2149,7 +2149,6 @@ body {
    التجاوب الاحترافي الشامل للهواتف والتابلت (Mobile & Tablet Responsive Pro)
    ========================================================================== */
 
-/* منع أي انزلاق أو فراغ أفقي خارج عرض الشاشة في جميع الصفحات */
 html,
 body {
     max-width: 100%;
@@ -2201,25 +2200,17 @@ body {
 
     .logo-text-wrap {
         min-width: 0 !important;
-        overflow: hidden !important;
     }
 
     .logo-title {
-        font-size: 0.92rem !important;
-        line-height: 1.2 !important;
-        white-space: nowrap !important;
-        overflow: hidden !important;
-        text-overflow: ellipsis !important;
+        font-size: 0.88rem !important;
+        line-height: 1.18 !important;
+        white-space: normal !important;
         display: block !important;
     }
 
     .logo-sub {
-        font-size: 0.72rem !important;
-        line-height: 1.2 !important;
-        white-space: nowrap !important;
-        overflow: hidden !important;
-        text-overflow: ellipsis !important;
-        display: block !important;
+        display: none !important;
     }
 
     .nav-actions {
@@ -2240,27 +2231,26 @@ body {
         justify-content: center !important;
     }
 
-    /* تحويل زر البحث (Ctrl+K) إلى أيقونة مدمجة في الهاتف حتى لا يكسر الشريط */
-    .navbar button[id*="search" i] span,
-    .navbar button[id*="search" i] kbd,
-    .navbar button[id*="cmd" i] span,
-    .navbar button[id*="cmd" i] kbd,
+    /* إخفاء النص داخل زر البحث في الهاتف والاكتفاء بالأيقونة */
+    #openSearchBtn span,
+    #openSearchBtn .kbd-hint,
     .search-btn span,
     .search-btn kbd {
         display: none !important;
     }
 
-    /* تحويل قائمة الروابط إلى بطاقة منسدلة نظيفة داخل حدود الشاشة */
+    /* القائمة المنسدلة متوافقة مع جميع الأصناف التي يفعّلها main.js */
     .nav-links {
         display: none !important;
         position: fixed !important;
-        top: 66px !important;
+        top: 64px !important;
         left: 12px !important;
         right: 12px !important;
+        bottom: auto !important;
         width: auto !important;
         max-width: none !important;
         height: auto !important;
-        max-height: calc(100vh - 84px) !important;
+        max-height: calc(100vh - 80px) !important;
         overflow-y: auto !important;
         flex-direction: column !important;
         gap: 6px !important;
@@ -2268,9 +2258,11 @@ body {
         background: var(--card-bg, #ffffff) !important;
         border: 1.5px solid var(--border, #e2e8f0) !important;
         border-radius: 16px !important;
-        box-shadow: 0 22px 48px rgba(14, 42, 92, 0.24) !important;
-        z-index: 9990 !important;
+        box-shadow: 0 22px 48px rgba(14, 42, 92, 0.28) !important;
+        z-index: 9995 !important;
         transform: none !important;
+        opacity: 1 !important;
+        visibility: visible !important;
     }
 
     body.dark-mode .nav-links {
@@ -2279,7 +2271,16 @@ body {
     }
 
     .nav-links.open,
-    .nav-links.active {
+    .nav-links.active,
+    .nav-links.show,
+    .nav-links.visible,
+    .nav-links.is-open,
+    .nav-links.nav-open,
+    .navbar.open .nav-links,
+    .navbar.active .nav-links,
+    .navbar.show .nav-links,
+    header.open .nav-links,
+    body.menu-open .nav-links {
         display: flex !important;
     }
 
@@ -2317,13 +2318,25 @@ body {
         gap: 12px !important;
     }
 
-    .campus-location-grid {
-        grid-template-columns: 1fr !important;
-        gap: 1.25rem !important;
+    .bento-grid,
+    .dept-grid,
+    .sitemap-tree {
+        display: grid !important;
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 16px !important;
     }
 
-    .dept-grid {
-        grid-template-columns: repeat(2, 1fr) !important;
+    .bento-grid > *,
+    .span-12, .span-8, .span-7, .span-6, .span-5, .span-4, .span-3 {
+        grid-column: span 1 !important;
+        width: 100% !important;
+        min-width: 0 !important;
+    }
+
+    .campus-location-grid > .campus-info-card,
+    .campus-location-grid > .map-card-container,
+    .bento-grid > .span-7:first-child {
+        grid-column: 1 / -1 !important;
     }
 
     .iso-building {
@@ -2366,6 +2379,7 @@ body {
         font-size: 0.88rem !important;
     }
 
+    .hero-cta-group,
     .hero-btns,
     .hero-actions {
         display: flex !important;
@@ -2374,18 +2388,14 @@ body {
         width: 100% !important;
     }
 
+    .hero-cta-group .btn,
     .hero-btns .btn,
     .hero-actions .btn {
         width: 100% !important;
         text-align: center !important;
     }
 
-    .hero-status-card {
-        padding: 1.2rem !important;
-        border-radius: 18px !important;
-    }
-
-    /* بطاقات الإحصائيات (عمودان متناسقان، والبطاقة الأخيرة تأخذ العرض الكامل) */
+    /* بطاقات الإحصائيات */
     .stats-grid {
         grid-template-columns: repeat(2, 1fr) !important;
         gap: 10px !important;
@@ -2399,13 +2409,45 @@ body {
         padding: 12px !important;
     }
 
-    /* إصلاح تداخل بطاقة الموقع مع خريطة Google Maps */
-    .campus-location-grid {
-        display: flex !important;
-        flex-direction: column !important;
-        gap: 1rem !important;
+    /* إصلاح شبكة Bento Grid وبطاقات التخصصات والموقع وخريطة الموقع */
+    .bento-grid,
+    .dept-grid,
+    .sitemap-tree {
+        display: grid !important;
+        grid-template-columns: 1fr !important;
+        gap: 14px !important;
+        width: 100% !important;
     }
 
+    .bento-grid > *,
+    .span-12, .span-8, .span-7, .span-6, .span-5, .span-4, .span-3 {
+        grid-column: 1 / -1 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+    }
+
+    .bento-card,
+    .dept-card,
+    .card {
+        padding: 1.25rem !important;
+        width: 100% !important;
+        overflow-wrap: break-word;
+    }
+
+    .card-actions {
+        display: flex !important;
+        flex-wrap: wrap !important;
+        gap: 8px !important;
+        margin-top: 1rem !important;
+    }
+
+    .card-actions .btn {
+        flex: 1 1 auto !important;
+        text-align: center !important;
+    }
+
+    /* إصلاح تداخل بطاقة الموقع مع خريطة Google Maps */
     .campus-info-card,
     .location-details-card,
     .map-card-container {
@@ -2423,27 +2465,14 @@ body {
         border-radius: 16px !important;
     }
 
-    /* بطاقات التخصصات والأساتذة */
-    .dept-grid {
-        grid-template-columns: 1fr !important;
-        gap: 12px !important;
-    }
-
-    .dept-card {
-        padding: 1.15rem !important;
-    }
-
-    /* أشرطة التحكم والفلاتر (Emplois / Campus / Étudiants) */
+    /* أشرطة التحكم والفلاتر */
     .controls-bar {
         flex-direction: column !important;
         gap: 10px !important;
         padding: 12px !important;
     }
 
-    .control-group {
-        width: 100% !important;
-    }
-
+    .control-group,
     .control-group select,
     .control-group input {
         width: 100% !important;
@@ -2517,7 +2546,8 @@ body {
         justify-content: center !important;
     }
 
-    /* الجداول العامة (قوائم الطلبة وجداول الحصص) */
+    /* جداول التوقيت واللوائح */
+    .table-responsive,
     .table-wrapper,
     .table-container {
         width: 100% !important;
@@ -2531,11 +2561,7 @@ body {
    ========================================================= */
 @media (max-width: 420px) {
     .logo-title {
-        font-size: 0.84rem !important;
-    }
-
-    .logo-sub {
-        display: none !important;
+        font-size: 0.82rem !important;
     }
 
     .iso-building {
