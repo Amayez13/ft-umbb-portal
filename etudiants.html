@@ -100,14 +100,477 @@
             </table>
         </div>
 
-        <!-- القسم الثاني: حاسبة المعدل بنظام LMD -->
-        <div class="section-title" id="calculateur">
-            <span>Simulateur de Moyenne Semestrielle (Système LMD)</span>
-            <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-                <button id="addModuleRowBtn" class="btn btn-outline">+ Ajouter un Module</button>
-                <button id="resetLmdBtn" class="btn btn-outline">Réinitialiser</button>
+        <!-- محاكي المعدل الفصلي المطور (نظام LMD متكامل) -->
+        <section class="lmd-calc-wrapper" id="lmdCalcSection" style="margin-top: 2.5rem;">
+            <div class="lmd-calc-header">
+                <div>
+                    <div class="section-title" style="margin-bottom: 4px;">
+                        <span>Simulateur de Moyenne Semestrielle (Système LMD)</span>
+                    </div>
+                    <p style="color: var(--text-muted); font-size: 0.86rem; margin: 0;">
+                        Supporte TD+Exam (40/60), TP+Exam (40/60), TP seul (100% Coeff 1) et Exposé.
+                    </p>
+                </div>
+
+                <div class="lmd-calc-actions">
+                    <select id="lmdPresetSelect" class="lmd-select" title="Charger un modèle de semestre">
+                        <option value="mrt_s1">Preset : M2 Réseaux & Télécoms (Coeff 17)</option>
+                        <option value="empty">Semestre Vierge (Personnalisé)</option>
+                    </select>
+                    <button type="button" id="addModuleBtn" class="btn btn-accent">+ Ajouter un Module</button>
+                    <button type="button" id="resetGradesBtn" class="btn btn-outline">Vider les notes</button>
+                </div>
             </div>
-        </div>
+
+            <div class="lmd-table-scroll">
+                <table class="lmd-table" id="lmdModulesTable">
+                    <thead>
+                        <tr>
+                            <th style="min-width: 210px;">Intitulé du Module (UE)</th>
+                            <th style="min-width: 175px;">Type d'évaluation</th>
+                            <th style="width: 78px;">Coeff</th>
+                            <th style="width: 78px;">Crédits</th>
+                            <th style="width: 115px;">Note TD / TP</th>
+                            <th style="width: 115px;">Note Examen</th>
+                            <th style="width: 105px;">Moyenne /20</th>
+                            <th style="width: 65px;">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="lmdModulesBody"></tbody>
+                </table>
+            </div>
+
+            <!-- بطاقة النتيجة النهائية للسداسي -->
+            <div class="lmd-summary-card">
+                <div class="lmd-summary-metrics">
+                    <div class="lmd-metric">
+                        <span class="lmd-metric-label">MOYENNE GÉNÉRALE</span>
+                        <strong class="lmd-metric-value" id="lmdGeneralAvg">0.00 / 20</strong>
+                    </div>
+                    <div class="lmd-metric">
+                        <span class="lmd-metric-label">TOTAL COEFFICIENTS</span>
+                        <strong class="lmd-metric-value" id="lmdTotalCoeff">0</strong>
+                    </div>
+                    <div class="lmd-metric">
+                        <span class="lmd-metric-label">CRÉDITS CAPITALISÉS</span>
+                        <strong class="lmd-metric-value" id="lmdTotalCredits">0 / 30</strong>
+                    </div>
+                </div>
+
+                <div id="lmdStatusBadge" class="lmd-status-pill is-pending">
+                    En attente de saisie
+                </div>
+            </div>
+        </section>
+
+        <style>
+            .lmd-calc-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: flex-end;
+                flex-wrap: wrap;
+                gap: 14px;
+                margin-bottom: 1.1rem;
+            }
+            .lmd-calc-actions {
+                display: flex;
+                gap: 8px;
+                flex-wrap: wrap;
+                align-items: center;
+            }
+            .lmd-select {
+                padding: 9px 12px;
+                border-radius: 10px;
+                border: 1px solid var(--border);
+                background: var(--card-bg, #fff);
+                color: var(--text-main, #0f172a);
+                font-weight: 600;
+                font-size: 0.85rem;
+            }
+            .lmd-table-scroll {
+                width: 100%;
+                overflow-x: auto;
+                border-radius: 14px;
+                border: 1px solid var(--border);
+                background: var(--card-bg, #fff);
+                box-shadow: 0 6px 20px rgba(14, 42, 92, 0.06);
+            }
+            .lmd-table {
+                width: 100%;
+                border-collapse: collapse;
+                text-align: center;
+                font-size: 0.88rem;
+            }
+            .lmd-table thead {
+                background: #0e2a5c;
+                color: #fff;
+            }
+            .lmd-table th {
+                padding: 13px 10px;
+                font-weight: 700;
+                font-size: 0.82rem;
+                white-space: nowrap;
+            }
+            .lmd-table th:first-child {
+                text-align: left;
+                padding-inline-start: 16px;
+            }
+            .lmd-table td {
+                padding: 9px 8px;
+                border-bottom: 1px solid var(--border);
+                vertical-align: middle;
+            }
+            .lmd-table td:first-child {
+                padding-inline-start: 14px;
+            }
+            .lmd-table tbody tr:hover {
+                background: rgba(14, 42, 92, 0.03);
+            }
+            .lmd-input {
+                width: 100%;
+                padding: 7px 9px;
+                border-radius: 8px;
+                border: 1px solid var(--border);
+                background: var(--bg-main, #f8fafc);
+                color: var(--text-main, #0f172a);
+                font-weight: 600;
+                font-size: 0.85rem;
+                text-align: center;
+                transition: border-color 0.2s, opacity 0.2s;
+            }
+            .lmd-input.is-name {
+                text-align: left;
+            }
+            .lmd-input:focus {
+                outline: none;
+                border-color: var(--accent, #f97316);
+            }
+            .lmd-input:disabled {
+                opacity: 0.38;
+                cursor: not-allowed;
+                background: rgba(148, 163, 184, 0.16);
+            }
+            .lmd-mode-select {
+                width: 100%;
+                padding: 7px 8px;
+                border-radius: 8px;
+                border: 1px solid var(--border);
+                background: var(--bg-main, #f8fafc);
+                color: var(--text-main, #0f172a);
+                font-weight: 600;
+                font-size: 0.8rem;
+            }
+            .lmd-mod-avg {
+                display: inline-block;
+                min-width: 62px;
+                padding: 5px 10px;
+                border-radius: 999px;
+                font-weight: 800;
+                font-size: 0.85rem;
+                background: rgba(148, 163, 184, 0.16);
+                color: var(--text-muted);
+            }
+            .lmd-mod-avg.is-pass {
+                background: rgba(5, 150, 105, 0.14);
+                color: #059669;
+            }
+            .lmd-mod-avg.is-fail {
+                background: rgba(220, 38, 38, 0.14);
+                color: #dc2626;
+            }
+            .lmd-del-btn {
+                background: rgba(220, 38, 38, 0.1);
+                color: #dc2626;
+                border: 1px solid rgba(220, 38, 38, 0.25);
+                border-radius: 8px;
+                padding: 6px 10px;
+                font-weight: 700;
+                cursor: pointer;
+            }
+            .lmd-del-btn:hover {
+                background: #dc2626;
+                color: #fff;
+            }
+            .lmd-summary-card {
+                margin-top: 1.2rem;
+                padding: 1.35rem 1.6rem;
+                border-radius: 16px;
+                border: 1.5px solid #0e2a5c;
+                background: var(--card-bg, #fff);
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                flex-wrap: wrap;
+                gap: 16px;
+            }
+            .lmd-summary-metrics {
+                display: flex;
+                gap: 2.2rem;
+                flex-wrap: wrap;
+            }
+            .lmd-metric {
+                display: flex;
+                flex-direction: column;
+                gap: 4px;
+            }
+            .lmd-metric-label {
+                font-size: 0.74rem;
+                font-weight: 800;
+                letter-spacing: 0.5px;
+                color: var(--text-muted);
+            }
+            .lmd-metric-value {
+                font-size: 1.65rem;
+                font-weight: 900;
+                color: #0e2a5c;
+            }
+            body.dark-mode .lmd-metric-value {
+                color: #f8fafc;
+            }
+            .lmd-status-pill {
+                padding: 10px 20px;
+                border-radius: 999px;
+                font-weight: 800;
+                font-size: 0.9rem;
+            }
+            .lmd-status-pill.is-pending {
+                background: rgba(148, 163, 184, 0.18);
+                color: var(--text-muted);
+            }
+            .lmd-status-pill.is-admis {
+                background: rgba(16, 185, 129, 0.16);
+                color: #059669;
+                border: 1px solid rgba(16, 185, 129, 0.35);
+            }
+            .lmd-status-pill.is-ajourne {
+                background: rgba(239, 68, 68, 0.15);
+                color: #dc2626;
+                border: 1px solid rgba(239, 68, 68, 0.35);
+            }
+            @media (max-width: 768px) {
+                .lmd-summary-card {
+                    flex-direction: column;
+                    align-items: flex-start;
+                }
+                .lmd-summary-metrics {
+                    gap: 1.25rem;
+                }
+                .lmd-metric-value {
+                    font-size: 1.35rem;
+                }
+            }
+        </style>
+
+        <script>
+        (function initSmartLMDCalculator() {
+            const STORAGE_KEY = "ft_lmd_modules_v2";
+            const tbody = document.getElementById("lmdModulesBody");
+            const presetSelect = document.getElementById("lmdPresetSelect");
+            const addBtn = document.getElementById("addModuleBtn");
+            const resetBtn = document.getElementById("resetGradesBtn");
+            if (!tbody) return;
+
+            // قائمة مقاييس M2 Réseaux & Télécoms المطابقة تماماً لملف moyenne.py
+            const MRT_S1_PRESET = [
+                { name: "Administration Systèmes & Réseaux (ASR)", mode: "td_exam", coeff: 3, credits: 6, cc: "", exam: "" },
+                { name: "Traitement Numérique du Signal (DSP)", mode: "td_exam", coeff: 2, credits: 4, cc: "", exam: "" },
+                { name: "Codage & Théorie de l'Information", mode: "td_exam", coeff: 2, credits: 4, cc: "", exam: "" },
+                { name: "Antennes & Propagation", mode: "td_exam", coeff: 2, credits: 4, cc: "", exam: "" },
+                { name: "Intelligence Artificielle (AI)", mode: "tp_exam", coeff: 2, credits: 4, cc: "", exam: "" },
+                { name: "Réseaux Haut Débit (RHD)", mode: "tp_exam", coeff: 2, credits: 4, cc: "", exam: "" },
+                { name: "TP Administration Réseaux", mode: "tp_only", coeff: 1, credits: 1, cc: "", exam: "" },
+                { name: "TP DSP", mode: "tp_only", coeff: 1, credits: 1, cc: "", exam: "" },
+                { name: "TP Codage", mode: "tp_only", coeff: 1, credits: 1, cc: "", exam: "" },
+                { name: "Normes & Protocoles (Exposé)", mode: "tp_only", coeff: 1, credits: 1, cc: "", exam: "" }
+            ];
+
+            let modules = [];
+            try {
+                const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
+                modules = Array.isArray(saved) && saved.length ? saved : JSON.parse(JSON.stringify(MRT_S1_PRESET));
+            } catch (e) {
+                modules = JSON.parse(JSON.stringify(MRT_S1_PRESET));
+            }
+
+            function parseGrade(val) {
+                if (val === "" || val === null || val === undefined) return null;
+                const num = parseFloat(String(val).replace(",", "."));
+                if (isNaN(num)) return null;
+                return Math.min(20, Math.max(0, num));
+            }
+
+            function saveState() {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(modules));
+            }
+
+            function computeModuleAvg(mod) {
+                const cc = parseGrade(mod.cc);
+                const ex = parseGrade(mod.exam);
+
+                if (mod.mode === "tp_only") {
+                    return cc !== null ? cc : null;
+                }
+                if (mod.mode === "exam_only") {
+                    return ex !== null ? ex : null;
+                }
+                // حالتي td_exam و tp_exam (0.4 للـ TD/TP و 0.6 للامتحان)
+                if (cc === null && ex === null) return null;
+                const ccVal = cc !== null ? cc : 0;
+                const exVal = ex !== null ? ex : 0;
+                return 0.4 * ccVal + 0.6 * exVal;
+            }
+
+            function recalculateAll() {
+                let totalWeighted = 0;
+                let totalCoeff = 0;
+                let earnedCredits = 0;
+                let hasAnyGrade = false;
+
+                const rows = tbody.querySelectorAll("tr");
+                modules.forEach((mod, idx) => {
+                    const coeff = Math.max(0, parseFloat(mod.coeff) || 0);
+                    const credits = Math.max(0, parseFloat(mod.credits) || 0);
+                    const avg = computeModuleAvg(mod);
+
+                    totalCoeff += coeff;
+                    const avgBadge = rows[idx]?.querySelector(".lmd-mod-avg");
+
+                    if (avg !== null) {
+                        hasAnyGrade = true;
+                        totalWeighted += avg * coeff;
+                        if (avg >= 10) {
+                            earnedCredits += credits;
+                        }
+                        if (avgBadge) {
+                            avgBadge.textContent = avg.toFixed(2);
+                            avgBadge.className = "lmd-mod-avg " + (avg >= 10 ? "is-pass" : "is-fail");
+                        }
+                    } else if (avgBadge) {
+                        avgBadge.textContent = "—";
+                        avgBadge.className = "lmd-mod-avg";
+                    }
+                });
+
+                const generalAvg = totalCoeff > 0 ? totalWeighted / totalCoeff : 0;
+                const finalCredits = generalAvg >= 10 && hasAnyGrade ? 30 : earnedCredits;
+
+                document.getElementById("lmdGeneralAvg").textContent = `${generalAvg.toFixed(2)} / 20`;
+                document.getElementById("lmdTotalCoeff").textContent = totalCoeff;
+                document.getElementById("lmdTotalCredits").textContent = `${finalCredits} / 30`;
+
+                const statusEl = document.getElementById("lmdStatusBadge");
+                if (!hasAnyGrade) {
+                    statusEl.textContent = "En attente de saisie";
+                    statusEl.className = "lmd-status-pill is-pending";
+                } else if (generalAvg >= 10) {
+                    statusEl.textContent = "ADMIS — Semestre Validé";
+                    statusEl.className = "lmd-status-pill is-admis";
+                } else {
+                    statusEl.textContent = "AJOURNÉ — Session de Rattrapage";
+                    statusEl.className = "lmd-status-pill is-ajourne";
+                }
+
+                saveState();
+            }
+
+            function renderTable() {
+                tbody.innerHTML = "";
+                modules.forEach((mod, index) => {
+                    const tr = document.createElement("tr");
+                    const isTpOnly = mod.mode === "tp_only";
+                    const isExamOnly = mod.mode === "exam_only";
+                    const ccPlaceholder = mod.mode === "td_exam" ? "TD /20" : "TP /20";
+
+                    tr.innerHTML = `
+                        <td>
+                            <input type="text" class="lmd-input is-name" data-field="name" data-idx="${index}" value="${mod.name.replace(/"/g, "&quot;")}" placeholder="Nom du module">
+                        </td>
+                        <td>
+                            <select class="lmd-mode-select" data-field="mode" data-idx="${index}">
+                                <option value="td_exam" ${mod.mode === "td_exam" ? "selected" : ""}>TD (40%) + Exam (60%)</option>
+                                <option value="tp_exam" ${mod.mode === "tp_exam" ? "selected" : ""}>TP (40%) + Exam (60%)</option>
+                                <option value="tp_only" ${mod.mode === "tp_only" ? "selected" : ""}>100% TP / Exposé</option>
+                                <option value="exam_only" ${mod.mode === "exam_only" ? "selected" : ""}>100% Examen</option>
+                            </select>
+                        </td>
+                        <td>
+                            <input type="number" min="1" max="10" step="1" class="lmd-input" data-field="coeff" data-idx="${index}" value="${mod.coeff}">
+                        </td>
+                        <td>
+                            <input type="number" min="0" max="30" step="1" class="lmd-input" data-field="credits" data-idx="${index}" value="${mod.credits}">
+                        </td>
+                        <td>
+                            <input type="text" inputmode="decimal" class="lmd-input" data-field="cc" data-idx="${index}" value="${mod.cc}" placeholder="${isExamOnly ? "—" : ccPlaceholder}" ${isExamOnly ? "disabled" : ""}>
+                        </td>
+                        <td>
+                            <input type="text" inputmode="decimal" class="lmd-input" data-field="exam" data-idx="${index}" value="${mod.exam}" placeholder="${isTpOnly ? "—" : "Exam /20"}" ${isTpOnly ? "disabled" : ""}>
+                        </td>
+                        <td>
+                            <span class="lmd-mod-avg">—</span>
+                        </td>
+                        <td>
+                            <button type="button" class="lmd-del-btn" data-del="${index}" title="Supprimer">✕</button>
+                        </td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+                recalculateAll();
+            }
+
+            tbody.addEventListener("input", (e) => {
+                const idx = e.target.dataset.idx;
+                const field = e.target.dataset.field;
+                if (idx === undefined || !field) return;
+                modules[idx][field] = e.target.value;
+                recalculateAll();
+            });
+
+            tbody.addEventListener("change", (e) => {
+                const idx = e.target.dataset.idx;
+                const field = e.target.dataset.field;
+                if (idx === undefined || field !== "mode") return;
+                modules[idx].mode = e.target.value;
+                if (modules[idx].mode === "tp_only") modules[idx].exam = "";
+                if (modules[idx].mode === "exam_only") modules[idx].cc = "";
+                renderTable();
+            });
+
+            tbody.addEventListener("click", (e) => {
+                const delIdx = e.target.dataset.del;
+                if (delIdx === undefined) return;
+                modules.splice(Number(delIdx), 1);
+                renderTable();
+            });
+
+            addBtn?.addEventListener("click", () => {
+                modules.push({
+                    name: `Nouveau Module ${modules.length + 1}`,
+                    mode: "td_exam",
+                    coeff: 2,
+                    credits: 4,
+                    cc: "",
+                    exam: ""
+                });
+                renderTable();
+            });
+
+            resetBtn?.addEventListener("click", () => {
+                modules.forEach(m => { m.cc = ""; m.exam = ""; });
+                renderTable();
+            });
+
+            presetSelect?.addEventListener("change", (e) => {
+                if (e.target.value === "mrt_s1") {
+                    modules = JSON.parse(JSON.stringify(MRT_S1_PRESET));
+                } else {
+                    modules = [{ name: "Module 1", mode: "td_exam", coeff: 2, credits: 4, cc: "", exam: "" }];
+                }
+                renderTable();
+            });
+
+            renderTable();
+        })();
+        </script>
 
         <div class="table-responsive" style="margin-bottom: 1.5rem;">
             <table class="timetable" style="min-width: 780px;">
