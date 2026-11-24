@@ -54,9 +54,7 @@
     </header>
 
     <main class="container" style="margin-top: 2.2rem;">
-        <!-- =========================================================
-             القسم الأول: قوائم الطلبة والتوجيه حسب التخصص
-             ========================================================= -->
+
         <section id="studentsDirectorySection">
             <div class="section-title">
                 <span>Listes des Étudiants & Orientation — Faculté de Technologie</span>
@@ -108,9 +106,7 @@
             </div>
         </section>
 
-        <!-- =========================================================
-             القسم الثاني: محاكي المعدل الفصلي المطور (نظام LMD متكامل)
-             ========================================================= -->
+
         <section class="lmd-calc-wrapper" id="lmdCalcSection" style="margin-top: 2.8rem;">
             <div class="lmd-calc-header">
                 <div>
@@ -150,7 +146,6 @@
                 </table>
             </div>
 
-            <!-- بطاقة النتيجة النهائية للسداسي -->
             <div class="lmd-summary-card">
                 <div class="lmd-summary-metrics">
                     <div class="lmd-metric">
@@ -179,7 +174,6 @@
     </footer>
 
     <style>
-        /* تنسيق جدول وقوائم الطلبة */
         .stu-count-pill {
             padding: 10px 14px;
             border-radius: 10px;
@@ -248,7 +242,6 @@
             color: #d97706;
         }
 
-        /* تنسيق حاسبة المعدل LMD */
         .lmd-calc-header {
             display: flex;
             justify-content: space-between;
@@ -434,7 +427,6 @@
             border: 1px solid rgba(239, 68, 68, 0.35);
         }
 
-        /* تجاوب الهواتف والتابلت بدون أي تمرير أفقي */
         @media (max-width: 860px) {
             .stu-list-wrap {
                 max-height: 420px;
@@ -554,9 +546,7 @@
     <script src="js/main.js"></script>
 
     <script>
-    /* =========================================================
-       1. وحدة عرض والبحث في قوائم الطلبة والتوجيه (FT UMBB)
-       ========================================================= */
+
     (function initStudentsDirectory() {
         const tbody = document.getElementById("studentsListBody");
         const searchInput = document.getElementById("studentSearchInput");
@@ -605,7 +595,6 @@
             { mat: "242431223101", nom: "SEMIR NOURELHOUDA", filiere: "Automatique", moy: "13.68" }
         ];
 
-        // دمج أي طلبة إضافيين من data.js إن وجدوا
         const extraStudents = (window.FT_DATA && Array.isArray(window.FT_DATA.students))
             ? window.FT_DATA.students.map(s => ({
                 mat: s.matricule || s.mat || "—",
@@ -656,9 +645,7 @@
         renderStudents();
     })();
 
-    /* =========================================================
-       2. حاسبة المعدل الفصلي المطور (نظام LMD متكامل)
-       ========================================================= */
+
     (function initSmartLMDCalculator() {
         const STORAGE_KEY = "ft_lmd_modules_v2";
         const tbody = document.getElementById("lmdModulesBody");
