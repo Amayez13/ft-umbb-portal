@@ -1,10 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@500;600;700;800&family=IBM+Plex+Sans:wght@400;500;600;700&family=Outfit:wght@600;700;800&display=swap');
 
 :root {
-    --primary: #0e2a5c;          /* أزرق أكاديمي عميق مستلهم من غلاف التقرير */
-    --primary-mid: #1a4b9c;      /* أزرق تقني متوسط للتفاعلات */
-    --accent: #f97316;           /* برتقالي حيوي للشارات والأزرار */
-    --accent-dark: #ea580c;      /* برتقالي داكن عند التمرير */
+    --primary: #0e2a5c;
+    --primary-mid: #1a4b9c;
+    --accent: #f97316;
+    --accent-dark: #ea580c;
     --accent-soft: rgba(249, 115, 22, 0.12);
     --blue-soft: rgba(26, 75, 156, 0.08);
     --bg: #f4f7fb;
@@ -39,7 +39,7 @@
     --shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
 }
 
-* {
+*{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -50,7 +50,6 @@ body {
     background-color: var(--bg);
     color: var(--text);
     line-height: 1.6;
-    /* زخرفة هندسية خفيفة في الخلفية */
     background-image: radial-gradient(var(--border) 1px, transparent 1px);
     background-size: 22px 22px;
     transition: background-color 0.25s, color 0.25s;
@@ -64,7 +63,6 @@ h1, h2, h3, h4, .logo-title {
     font-family: 'Outfit', 'Cairo', sans-serif;
 }
 
-/* الشريط العلوي */
 .top-bar {
     background: #071930;
     color: #cbd5e1;
@@ -83,7 +81,6 @@ h1, h2, h3, h4, .logo-title {
     gap: 6px;
 }
 
-/* الهيدر وشريط التنقل */
 header {
     background: var(--surface);
     box-shadow: var(--shadow);
@@ -207,7 +204,6 @@ header {
     cursor: pointer;
 }
 
-/* الواجهة الرئيسية Split Hero */
 .hero-section {
     max-width: 1220px;
     margin: 2rem auto;
@@ -276,7 +272,6 @@ header {
     flex-wrap: wrap;
 }
 
-/* بطاقة الحالة المباشرة في الواجهة */
 .live-panel {
     background: var(--surface);
     border: 1px solid var(--border);
@@ -322,7 +317,6 @@ header {
     border-radius: 6px;
 }
 
-/* شريط الإحصائيات */
 .stats-grid {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
@@ -366,7 +360,6 @@ header {
     font-weight: 600;
 }
 
-/* تخطيط Bento Grid للأقسام (أحجام غير متطابقة) */
 .container {
     max-width: 1220px;
     margin: 0 auto 3.5rem;
@@ -441,7 +434,6 @@ header {
     flex-wrap: wrap;
 }
 
-/* الأزرار */
 .btn {
     display: inline-flex;
     align-items: center;
@@ -483,7 +475,6 @@ header {
     background: var(--bg);
 }
 
-/* خريطة الموقع Plan du Site */
 .sitemap-box {
     background: var(--surface);
     border-radius: var(--radius);
@@ -525,7 +516,6 @@ header {
     text-decoration: underline;
 }
 
-/* الجداول وشريط التحكم */
 .controls-bar {
     background: var(--surface);
     padding: 1.2rem;
@@ -657,7 +647,6 @@ header {
 .badge-td { background: #fef3c7; color: #92400e; }
 .badge-tp { background: #dcfce7; color: #166534; }
 
-/* بطاقات الأساتذة */
 .dept-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -730,7 +719,6 @@ header {
     padding: 7px 9px;
 }
 
-/* نافذة البحث الشامل Ctrl+K */
 .cmd-overlay {
     position: fixed;
     inset: 0;
@@ -804,9 +792,6 @@ footer {
     font-size: 0.9rem;
 }
 
-
-
-/* تخطيط الساعات والقاعات الذكية */
 .campus-tabs {
     display: flex;
     gap: 10px;
@@ -843,7 +828,6 @@ footer {
     box-shadow: var(--shadow);
 }
 
-/* المكتبة الذكية - تصميم المدرج / الملعب (Stadium View) */
 .library-banner {
     background: var(--surface);
     border: 1px solid var(--border);
@@ -971,7 +955,6 @@ footer {
     font-weight: 700;
 }
 
-/* إشعار التحقق كل 30 دقيقة */
 .ping-toast {
     position: fixed;
     bottom: 24px;
@@ -996,9 +979,6 @@ footer {
     to { transform: translateY(0); opacity: 1; }
 }
 
-/* =========================================================
-   المخطط المعماري ثلاثي الأبعاد للمكتبة (3D Isometric Plan)
-   ========================================================= */
 .arch-wrapper {
     background: var(--surface);
     border: 1px solid var(--border);
@@ -1064,7 +1044,6 @@ footer {
     align-items: center;
 }
 
-/* مسرح العرض ثلاثي الأبعاد */
 .iso-viewport {
     position: relative;
     width: 100%;
@@ -1083,14 +1062,12 @@ footer {
     background: radial-gradient(circle at 50% 45%, #16263e 0%, #09111e 100%);
 }
 
-/* الأرضية الخشبية للمبنى */
 .iso-building {
     position: relative;
     width: 740px;
     height: 490px;
     transform-style: preserve-3d;
     transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
-    /* نقش باركيه خشبي واقعي */
     background-color: #d8b589;
     background-image:
         repeating-linear-gradient(90deg, rgba(120, 72, 24, 0.14) 0px, rgba(120, 72, 24, 0.14) 2px, transparent 2px, transparent 36px),
@@ -1109,7 +1086,6 @@ footer {
         -28px 36px 50px rgba(0, 0, 0, 0.65);
 }
 
-/* الجدران العلوية واليسرى ثلاثية الأبعاد */
 .iso-wall-top {
     position: absolute;
     top: -38px;
@@ -1159,7 +1135,6 @@ footer {
     border-radius: 2px;
 }
 
-/* ملصقات المناطق المعمارية (مثل الملصقات الصفراء في الصورة) */
 .zone-tag {
     position: absolute;
     background: #fef08a;
@@ -1176,7 +1151,6 @@ footer {
     z-index: 20;
 }
 
-/* رفوف الكتب ثلاثية الأبعاد */
 .iso-bookshelf {
     position: absolute;
     background: #475569;
@@ -1192,7 +1166,6 @@ footer {
     letter-spacing: 0.5px;
 }
 
-/* الدرج / السلالم */
 .iso-stairs {
     position: absolute;
     right: 22px;
@@ -1229,7 +1202,6 @@ footer {
     border-radius: 4px;
 }
 
-/* الطاولات التفاعلية ثلاثية الأبعاد */
 .iso-desk {
     position: absolute;
     width: 96px;
@@ -1251,7 +1223,6 @@ footer {
     transform: translateZ(22px) scale(1.04);
 }
 
-/* حالة الطاولة: شاغرة (أخضر زمردي) */
 .iso-desk.free {
     background: linear-gradient(135deg, #ecfdf5 0%, #a7f3d0 100%);
     border-color: #059669;
@@ -1259,7 +1230,6 @@ footer {
     box-shadow: -6px 7px 0 #059669, -10px 13px 16px rgba(0, 0, 0, 0.28);
 }
 
-/* حالة الطاولة: محجوزة (أحمر) */
 .iso-desk.occupied {
     background: linear-gradient(135deg, #fef2f2 0%, #fecaca 100%);
     border-color: #dc2626;
@@ -1267,7 +1237,6 @@ footer {
     box-shadow: -6px 7px 0 #dc2626, -10px 13px 16px rgba(0, 0, 0, 0.28);
 }
 
-/* حالة الطاولة: مقعدي الحالي (ذهبي) */
 .iso-desk.mine {
     background: linear-gradient(135deg, #fefce8 0%, #fde047 100%);
     border-color: #b45309;
@@ -1275,7 +1244,6 @@ footer {
     box-shadow: -6px 7px 0 #b45309, 0 0 18px rgba(234, 179, 8, 0.7);
 }
 
-/* الكراسي المحيطة بكل طاولة */
 .iso-desk::before,
 .iso-desk::after {
     content: "";
@@ -1302,7 +1270,6 @@ footer {
     text-transform: uppercase;
 }
 
-/* عناصر الطابق الأول (الاستقبال فقط) */
 .reception-counter {
     position: absolute;
     top: 85px;
@@ -1524,11 +1491,6 @@ header.scrolled {
 }
 
 
-/* =========================================================
-   الهوية البصرية المستلهمة من التقرير (أزرق + برتقالي + أشكال هندسية)
-   ========================================================= */
-
-/* 1. خلفية هندسية تقنية خفيفة (خطوط دقيقة ونقاط) */
 body {
     background-image:
         radial-gradient(rgba(26, 75, 156, 0.14) 1px, transparent 1px),
@@ -1537,7 +1499,6 @@ body {
     background-size: 24px 24px, 96px 96px, 96px 96px;
 }
 
-/* 2. شعار الهيدر بلمسة برتقالية وزرقاء */
 .logo-emblem {
     background: linear-gradient(135deg, var(--primary) 0%, var(--primary-mid) 100%);
     color: #ffffff;
@@ -1546,14 +1507,12 @@ body {
     box-shadow: 0 4px 12px rgba(249, 115, 22, 0.22);
 }
 
-/* 3. الواجهة الرئيسية (Hero) بأشكال هندسية متداخلة مثل غلاف التقرير */
 .hero-main {
     background: linear-gradient(135deg, #0b2249 0%, #16428c 65%, #1d54b0 100%);
     border: 1px solid rgba(255, 255, 255, 0.12);
     box-shadow: 0 18px 40px rgba(14, 42, 92, 0.22);
 }
 
-/* شكل هندسي برتقالي في الزاوية العلوية */
 .hero-main::before {
     content: "";
     position: absolute;
@@ -1568,7 +1527,6 @@ body {
     pointer-events: none;
 }
 
-/* حلقات هندسية مزدوجة في الأسفل */
 .hero-main::after {
     content: "";
     position: absolute;
@@ -1590,7 +1548,6 @@ body {
     border-radius: 999px;
 }
 
-/* 4. الأزرار البرتقالية والزرقاء */
 .btn-accent {
     background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
     color: #ffffff;
@@ -1602,14 +1559,12 @@ body {
     color: #ffffff;
 }
 
-/* 5. عناوين الأقسام مع شارة هندسية برتقالية/زرقاء (مثل PARTIE A / B في التقرير) */
 .section-title {
     position: relative;
     padding-inline-start: 16px;
     border-inline-start: 5px solid var(--accent);
 }
 
-/* 6. الشارات المستديرة (Pill Badges) للأقسام والتخصصات */
 .dept-code {
     background: var(--blue-soft);
     color: var(--primary-mid);
@@ -1635,7 +1590,6 @@ body {
     border-color: rgba(147, 197, 253, 0.25);
 }
 
-/* 7. بطاقات التخصصات والإحصائيات بلمسة هندسية جانبية (مثل صناديق NOTE في التقرير) */
 .bento-card {
     border-top: 3px solid var(--primary-mid);
     border-radius: 18px;
@@ -1663,7 +1617,6 @@ body {
     box-shadow: 0 4px 10px rgba(249, 115, 22, 0.24);
 }
 
-/* 8. تحديث توهج الماوس على البطاقات إلى البرتقالي */
 .bento-card::before, .stat-card::before, .teacher-card::before {
     background: radial-gradient(
         420px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
@@ -1672,7 +1625,6 @@ body {
     );
 }
 
-/* 9. صناديق خريطة الموقع (Plan du Site) */
 .sitemap-col h4 {
     color: var(--primary);
     border-inline-start: 4px solid var(--accent);
@@ -1682,14 +1634,10 @@ body {
     color: #93c5fd;
 }
 
-/* 10. رؤوس الجداول بتدرج أزرق التقرير */
 .timetable th {
     background: linear-gradient(135deg, var(--primary) 0%, var(--primary-mid) 100%);
 }
 
-/* =========================================================
-   تنسيق الشعار الرسمي للكلية وخريطة الموقع (Google Maps)
-   ========================================================= */
 .logo-emblem {
     width: 48px;
     height: 48px;
@@ -1727,7 +1675,6 @@ body {
 }
 
 
-/* بطاقة معلومات الحرم الجامعي والخريطة */
 .campus-brand-header {
     display: flex;
     align-items: center;
@@ -1789,14 +1736,10 @@ body {
     transition: filter 0.3s ease;
 }
 
-/* تحويل خريطة جوجل للوضع الليلي تلقائياً عند تفعيل Dark Mode */
 [data-theme="dark"] .campus-map-iframe {
     filter: invert(90%) hue-rotate(180deg) contrast(92%);
 }
 
-/* =========================================================
-   البادج الجامعي ثلاثي الأبعاد المتحرك (3D Swinging ID Badge)
-   ========================================================= */
 .iso-viewport {
     position: relative;
 }
@@ -1818,7 +1761,6 @@ body {
     animation-play-state: paused;
 }
 
-/* شريط التعليق العلوي والمشبك المعدني */
 .badge-lanyard-strap {
     width: 18px;
     height: 28px;
@@ -1844,7 +1786,6 @@ body {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
 }
 
-/* البطاقة ثلاثية الأبعاد */
 .student-badge-3d {
     width: 215px;
     height: 315px;
@@ -2044,7 +1985,6 @@ body {
     letter-spacing: 1px;
 }
 
-/* لمعة ضوئية متحركة فوق البطاقة */
 .badge-glare {
     position: absolute;
     inset: 0;
@@ -2054,7 +1994,6 @@ body {
     pointer-events: none;
 }
 
-/* الوجه الخلفي للبادج */
 .badge-back {
     transform: rotateY(180deg);
     background: linear-gradient(160deg, #0e2a5c 0%, #163b7a 100%);
@@ -2098,7 +2037,6 @@ body {
     border: 1px solid var(--border);
 }
 
-/* حركات التأرجح والاهتزاز 3D */
 @keyframes badgePendulumSwing {
     0%, 100% {
         transform: rotateZ(-3deg) rotateY(-8deg) translateY(0px);
@@ -2145,10 +2083,6 @@ body {
     margin: auto !important;
 }
 
-/* ==========================================================================
-   التجاوب الاحترافي الشامل للهواتف والتابلت (Mobile & Tablet Responsive Pro)
-   ========================================================================== */
-
 html,
 body {
     max-width: 100%;
@@ -2161,9 +2095,6 @@ body {
     box-sizing: border-box;
 }
 
-/* =========================================================
-   1. شريط التنقل والقائمة المنسدلة (أقل من 992px: هاتف + تابلت)
-   ========================================================= */
 @media (max-width: 992px) {
     .top-bar {
         padding: 6px 12px !important;
@@ -2231,7 +2162,6 @@ body {
         justify-content: center !important;
     }
 
-    /* إخفاء النص داخل زر البحث في الهاتف والاكتفاء بالأيقونة */
     #openSearchBtn span,
     #openSearchBtn .kbd-hint,
     .search-btn span,
@@ -2239,7 +2169,6 @@ body {
         display: none !important;
     }
 
-    /* القائمة المنسدلة متوافقة مع جميع الأصناف التي يفعّلها main.js */
     .nav-links {
         display: none !important;
         position: fixed !important;
@@ -2298,9 +2227,6 @@ body {
     }
 }
 
-/* =========================================================
-   2. تنسيق التابلت (769px إلى 1024px)
-   ========================================================= */
 @media (min-width: 769px) and (max-width: 1024px) {
     .container,
     .hero-section,
@@ -2345,9 +2271,6 @@ body {
     }
 }
 
-/* =========================================================
-   3. تنسيق الهواتف الذكية (أقل من 768px)
-   ========================================================= */
 @media (max-width: 768px) {
     .container,
     .hero-section,
@@ -2358,7 +2281,6 @@ body {
         margin-inline: auto !important;
     }
 
-    /* القسم الرئيسي (Hero) */
     .hero-section {
         grid-template-columns: 1fr !important;
         gap: 1rem !important;
@@ -2395,7 +2317,6 @@ body {
         text-align: center !important;
     }
 
-    /* بطاقات الإحصائيات */
     .stats-grid {
         grid-template-columns: repeat(2, 1fr) !important;
         gap: 10px !important;
@@ -2409,7 +2330,6 @@ body {
         padding: 12px !important;
     }
 
-    /* إصلاح شبكة Bento Grid وبطاقات التخصصات والموقع وخريطة الموقع */
     .bento-grid,
     .dept-grid,
     .sitemap-tree {
@@ -2447,7 +2367,6 @@ body {
         text-align: center !important;
     }
 
-    /* إصلاح تداخل بطاقة الموقع مع خريطة Google Maps */
     .campus-info-card,
     .location-details-card,
     .map-card-container {
@@ -2465,7 +2384,6 @@ body {
         border-radius: 16px !important;
     }
 
-    /* أشرطة التحكم والفلاتر */
     .controls-bar {
         flex-direction: column !important;
         gap: 10px !important;
@@ -2478,7 +2396,6 @@ body {
         width: 100% !important;
     }
 
-    /* صفحة المكتبة الذكية والمجسم 3D على الهاتف */
     .campus-tabs {
         flex-direction: column !important;
         gap: 8px !important;
@@ -2546,7 +2463,6 @@ body {
         justify-content: center !important;
     }
 
-    /* جداول التوقيت واللوائح */
     .table-responsive,
     .table-wrapper,
     .table-container {
@@ -2556,9 +2472,6 @@ body {
     }
 }
 
-/* =========================================================
-   4. الهواتف الصغيرة جداً (أقل من 420px)
-   ========================================================= */
 @media (max-width: 420px) {
     .logo-title {
         font-size: 0.82rem !important;
