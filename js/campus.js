@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", () => {
-    // 1. التبديل بين تبويب المكتبة 3D وتبويب محاكي القاعات الفارغة
     const tabBtns = document.querySelectorAll(".tab-btn");
     const librarySection = document.getElementById("librarySection");
     const roomsSection = document.getElementById("roomsSection");
@@ -14,7 +13,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // 2. محاكي البحث عن القاعات الفارغة للمراجعة (يعتمد على TIMETABLES في data.js)
     const simDaySelect = document.getElementById("simDaySelect");
     const simSlotSelect = document.getElementById("simSlotSelect");
     const simTypeFilter = document.getElementById("simTypeFilter");
@@ -87,7 +85,6 @@ document.addEventListener("DOMContentLoaded", () => {
         updateFreeRoomsSimulator();
     }
 
-    // 3. أوقات عمل المكتبة (أيام عادية 08:30 - 17:30 | أيام الامتحانات 08:30 - 00:00)
     let isExamPeriod = false;
     const examModeToggle = document.getElementById("examModeToggle");
     const libHoursText = document.getElementById("libHoursText");
@@ -120,8 +117,7 @@ document.addEventListener("DOMContentLoaded", () => {
         updateLibraryHours();
     }
 
-    // 4. نظام الطوابق الثلاثة 3D (1: استقبال | 2: طاولات T-01..T-12 | 3: طاولات T-13..T-24)
-    let activeFloor = 2; // يبدأ بالطابق الثاني لإظهار الطاولات 3D مباشرة
+    let activeFloor = 2; 
     let is3DView = true;
     let rotZ = -28;
 
@@ -359,7 +355,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // 5. إدارة حساب الطالب ومسح رمز QR
     function updateAccountUI() {
         if (!studentLoginForm) return;
         if (!currentStudent) {
@@ -470,7 +465,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // 6. مؤقت التحقق التلقائي كل 30 دقيقة
     const pingToast = document.getElementById("pingToast");
     const pingCountdown = document.getElementById("pingCountdown");
 
@@ -545,6 +539,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }, 1000);
 
-    // تشغيل العرض الأولي فوراً
+
     updateAccountUI();
 });
