@@ -1,4 +1,3 @@
-// قاموس الترجمة ثنائي اللغة FR / AR
 const I18N = {
     fr: {
         facultyName: "Faculté de Technologie",
@@ -48,7 +47,6 @@ const I18N = {
     }
 };
 
-// تحديد اليوم والحصة الزمنية الحالية (أو المحاكاة)
 let simulatedState = null;
 
 function getActiveDayAndSlot() {
@@ -70,7 +68,6 @@ function getActiveDayAndSlot() {
     return { day: dayName, slot: slotIndex, isSimulated: false };
 }
 
-// حساب القاعات الفارغة والأساتذة المشغولين من data.js مباشرة
 function computeCampusLiveStatus() {
     if (typeof TIMETABLES === "undefined") return { activeCount: 0, freeRooms: [], busyProfs: new Set() };
 
@@ -102,7 +99,7 @@ function computeCampusLiveStatus() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-    // 1. الوضع الليلي Dark Mode
+
     const themeToggle = document.getElementById("themeToggle");
     if (localStorage.getItem("ft_theme") === "dark") {
         document.documentElement.setAttribute("data-theme", "dark");
@@ -115,7 +112,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // 2. ثنائية اللغة FR / AR + اتجاه RTL
     const langToggle = document.getElementById("langToggle");
     function applyLang(lang) {
         document.documentElement.setAttribute("lang", lang);
@@ -136,14 +132,12 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // 3. قائمة الهاتف Burger Menu
     const burgerBtn = document.getElementById("burgerBtn");
     const navLinks = document.getElementById("navLinks");
     if (burgerBtn && navLinks) {
         burgerBtn.addEventListener("click", () => navLinks.classList.toggle("show"));
     }
 
-    // 4. العدّاد التصاعدي للإحصائيات في الصفحة الرئيسية
     document.querySelectorAll(".counter").forEach(counter => {
         const target = +counter.getAttribute("data-target");
         const step = Math.max(1, Math.ceil(target / 45));
@@ -159,7 +153,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }, 25);
     });
 
-    // 5. تحديث لوحة الحالة المباشرة والقاعات الفارغة
     function refreshLiveDashboard() {
         const summaryEl = document.getElementById("activeClassesSummary");
         const roomsEl = document.getElementById("freeRoomsContainer");
@@ -197,7 +190,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // 6. البحث الشامل Ctrl+K
     const cmdOverlay = document.getElementById("cmdOverlay");
     const cmdInput = document.getElementById("cmdInput");
     const cmdResults = document.getElementById("cmdResults");
@@ -269,11 +261,9 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     if (cmdInput) cmdInput.addEventListener("input", (e) => runGlobalSearch(e.target.value));
 
-    // قراءة معامل القسم من الرابط
     const urlParams = new URLSearchParams(window.location.search);
     const paramDept = urlParams.get("dept");
 
-    // 7. منطق صفحة جداول التوقيت (emplois.html) مع تظليل الحصة الجارية
     const deptSelect = document.getElementById("deptSelect");
     const groupSelect = document.getElementById("groupSelect");
     const timetableBody = document.getElementById("timetableBody");
@@ -321,7 +311,6 @@ document.addEventListener("DOMContentLoaded", () => {
         updateGroups();
     }
 
-    // 8. منطق صفحة الأساتذة (enseignants.html) مع حالة التوفر وبطاقة vCard
     const teacherDeptFilter = document.getElementById("teacherDeptFilter");
     const teacherSearch = document.getElementById("teacherSearch");
     const teachersGrid = document.getElementById("teachersGrid");
@@ -386,7 +375,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 });
 
-// نسخ الإيميل
 function copyEmail(email, btn) {
     navigator.clipboard.writeText(email).then(() => {
         const old = btn.textContent;
@@ -395,7 +383,6 @@ function copyEmail(email, btn) {
     });
 }
 
-// توليد وتحميل بطاقة جهة اتصال vCard (.vcf)
 function downloadVCard(name, email, dept) {
     const vcf = `BEGIN:VCARD\nVERSION:3.0\nFN:${name}\nORG:Université M'hamed Bougara Boumerdès - FT (${dept})\nTITLE:Enseignant-Chercheur\nEMAIL;TYPE=INTERNET:${email}\nEND:VCARD`;
     const blob = new Blob([vcf], { type: "text/vcard" });
@@ -407,7 +394,6 @@ function downloadVCard(name, email, dept) {
     URL.revokeObjectURL(url);
 }
 
-// توليد وتحميل ملف تقويم Google Calendar (.ics) للجدول المختار
 function exportTimetableICS() {
     const deptSelect = document.getElementById("deptSelect");
     const groupSelect = document.getElementById("groupSelect");
@@ -418,7 +404,6 @@ function exportTimetableICS() {
     const schedule = TIMETABLES[dept]?.[group];
     if (!schedule) return;
 
-    // تواريخ مرجعية لأسبوع دراسي (السبت إلى الخميس)
     const dayDates = {
         Samedi: "20261121",
         Dimanche: "20261122",
@@ -458,7 +443,7 @@ function exportTimetableICS() {
 }
 
 /* =========================================================
-   UI ANIMATION & INTERACTION CONTROLLER (ALL PAGES)
+UI ANIMATION & INTERACTION CONTROLLER (ALL PAGES)
    ========================================================= */
 (function initModernAnimations() {
     // 1. Trigger smooth page entrance immediately
