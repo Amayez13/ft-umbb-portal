@@ -9,7 +9,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const receiptContent = document.getElementById("receiptContent");
     const closeReceiptBtn = document.getElementById("closeReceiptBtn");
 
-    // ملء قوائم المواد والأساتذة تلقائياً من js/data.js
     function populateModulesAndTeachers() {
         const dept = claimDept.value;
         const modulesSet = new Set();
