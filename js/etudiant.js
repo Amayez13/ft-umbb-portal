@@ -15,7 +15,6 @@ document.addEventListener("DOMContentLoaded", () => {
         BIO: ["M2-BIO (Groupe 1)", "L3-BIO (Groupe 1)"]
     };
 
-    // توليد قائمة طلبة واقعية بأرقام تسجيل مجهولة الاسم لحماية الخصوصية
     function getStudentsForGroup(dept, group) {
         const seedBase = dept.split("").reduce((acc, ch) => acc + ch.charCodeAt(0), 0) + group.length * 13;
         const list = [];
@@ -80,7 +79,6 @@ document.addEventListener("DOMContentLoaded", () => {
         updateGroupDropdown();
     }
 
-    // تصدير القائمة بصيغة CSV حقيقية عبر Blob
     if (exportCsvBtn) {
         exportCsvBtn.addEventListener("click", () => {
             if (currentFilteredStudents.length === 0) return;
@@ -100,7 +98,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // =========================================================
-    // حاسبة المعدل بنظام LMD (40% TD/TP + 60% Examen)
+    // LMD (40% TD/TP + 60% Examen)
     // =========================================================
     const lmdTableBody = document.getElementById("lmdTableBody");
     const lmdFinalAvg = document.getElementById("lmdFinalAvg");
@@ -145,7 +143,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
         const finalAvg = totalCoeff > 0 ? (weightedSum / totalCoeff) : 0;
-        // في نظام LMD إذا كان المعدل العام >= 10 يكتسب الطالب كامل أرصدة السداسي (30) بالتعويض
         const finalCredits = finalAvg >= 10 ? possibleCredits : earnedCredits;
 
         lmdFinalAvg.textContent = `${finalAvg.toFixed(2)} / 20`;
