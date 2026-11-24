@@ -7,7 +7,6 @@ const DEPARTMENTS = {
     BIO: "Génie Biomédical (BIO)"
 };
 
-// جداول التوقيت الرسمية S1 2026/2027 (6 حصص يومياً من 08:00 إلى 17:50)
 const TIMETABLES = {
     RT: {
         "MRT25/A — Master 2 (Groupe A)": {
@@ -533,7 +532,6 @@ const TIMETABLES = {
     }
 };
 
-// قائمة الأساتذة المحدثة مع المقاييس والتخصص الفعلي لكل أستاذ من الجداول
 const TEACHERS = [
     { name: "MECHID Samira", grade: "Enseignant-Chercheur", dept: "RT", specialty: "Technologies Web (M2 RT), Python Avancé & Linux (M1 RT), Gestion de Projet (M2 BIO)", email: "s.mechid@univ-boumerdes.dz" },
     { name: "MERAIHI Yassine", grade: "Enseignant-Chercheur", dept: "RT", specialty: "Réseaux Sans Fil & Réseaux Mobiles (M2 RT)", email: "y.meraihi@univ-boumerdes.dz" },
@@ -684,7 +682,6 @@ const TEACHERS = [
     { name: "Ladjici Nourelhouda", grade: "Enseignant-Chercheur", dept: "BIO", specialty: "Génie Biomédical", email: "ladjicinourelhouda23@gmail.com" }
 ];
 
-// قوائم الطلبة للتحميل
 const STUDENT_LISTS = [
     { dept: "RT", level: "Master 2 — Réseaux et Télécommunications (MRT25 / A & B)", count: 44, year: "2026-2027", file: "Liste_Etudiants_MRT25_M2.csv" },
     { dept: "RT", level: "Master 1 — Réseaux et Télécommunications (MRT26 / A & B)", count: 52, year: "2026-2027", file: "Liste_Etudiants_MRT26_M1.csv" },
